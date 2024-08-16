@@ -192,6 +192,7 @@ namespace osu.Game.Rulesets.Osu
                         new OsuModRelax(),
                         new OsuModAutopilot(),
                         new OsuModSpunOut(),
+                        new OsuModFlower()
                     };
 
                 case ModType.Fun:
