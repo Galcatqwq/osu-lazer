@@ -4,7 +4,7 @@
 
 # osu!
 
-[![Build status](https://api.hiosu.com/erciyuan/pc.php)](https://github.com/Galcatqwq/osu/null)
+[![Build status](https://i.ibb.co/7N7S468/114537302-p1-729px-913px.jpg)](https://github.com/Galcatqwq/osu/null)
 [![GitHub release](https://img.shields.io/github/release/ppy/osu.svg)](https://github.com/ppy/osu/releases/latest)
 [![CodeFactor](https://www.codefactor.io/repository/github/ppy/osu/badge)](https://www.codefactor.io/repository/github/ppy/osu)
 [![dev chat](https://discord.com/invite/dXbN894C)](https://discord.gg/Galcatawa)
