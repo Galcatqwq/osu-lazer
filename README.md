@@ -4,13 +4,12 @@
 
 # osu!
 
-[![Build status](https://i.ibb.co/7N7S468/114537302-p1-729px-913px.jpg)](https://github.com/Galcatqwq/osu/null)
+[![Build status](https://i.ibb.co/7N7S468/114537302-p1-729px-913px.jpg)]
 [![GitHub release](https://img.shields.io/github/release/ppy/osu.svg)](https://github.com/ppy/osu/releases/latest)
-[![CodeFactor](https://www.codefactor.io/repository/github/ppy/osu/badge)](https://www.codefactor.io/repository/github/ppy/osu)
 [![dev chat](https://discord.com/invite/dXbN894C)](https://discord.gg/Galcatawa)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/osu-web/localized.svg)](https://crowdin.com/project/osu-web)
 
-A free-to-win rhythm game. Rhythm is just a *click* away!
+节奏只需*点击*即可！
 
 This is the future – and final – iteration of the [osu!](https://osu.ppy.sh) game client which marks the beginning of an open era! Currently known by and released under the release codename "*lazer*". As in sharper than cutting-edge.
 
