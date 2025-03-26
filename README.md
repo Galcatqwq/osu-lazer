@@ -5,8 +5,8 @@
 # osu!
 
 [![Build status](https://images2.imgbox.com/0b/df/66PTpxUz_o.png)]
-[![GitHub release](https://img.shields.io/github/release/ppy/osu.svg)](https://github.com/ppy/osu/releases/latest)
-[![dev chat](https://discord.com/invite/dXbN894C)](https://discord.gg/Galcatawa)
+[![GitHub release new](https://img.shields.io/github/release/ppy/osu.svg)](https://github.com/ppy/osu/releases/latest)
+[![dev chat](https://discord.com/invite/dXbN894C)](https://discord.gg/HaHk_y)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/osu-web/localized.svg)](https://crowdin.com/project/osu-web)
 
 节奏只需*点击一下*即可！
