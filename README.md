@@ -2,7 +2,9 @@
   <img width="500" alt="osu! logo" src="assets/lazer.png">
 </p>
 
-# osu!
+## Status
+
+STAGE:CATALYZING
 
 [![Build status](https://images2.imgbox.com/0b/df/66PTpxUz_o.png)]
 [![GitHub release new](https://img.shields.io/github/release/ppy/osu.svg)](https://github.com/ppy/osu/releases/latest)
@@ -12,11 +14,7 @@
 
 节奏只需*点击一下*即可！
 
-This is the future – and final – iteration of the [osu!](https://osu.ppy.sh) game client which marks the beginning of an open era! Currently known by and released under the release codename "*lazer*". As in sharper than cutting-edge.
-
-## Status
-
-有种女主去世男主回忆美好往事的错觉​
+This is the future – and final – iteration of the [osu!](https://osu.ppy.sh) game client which marks the beginning of an open era! Currently known by and released under the release codename "*lazer*". As in sharper than cutting-edge.​
 
 ### Downloading the source code
 
