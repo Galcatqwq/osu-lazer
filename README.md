@@ -4,7 +4,7 @@
 
 # osu!
 
-[![Build status](https://i.ibb.co/7N7S468/114537302-p1-729px-913px.jpg)]
+[![Build status]([https://images2.imgbox.com/0b/df/66PTpxUz_o.png])
 [![GitHub release](https://img.shields.io/github/release/ppy/osu.svg)](https://github.com/ppy/osu/releases/latest)
 [![dev chat](https://discord.com/invite/dXbN894C)](https://discord.gg/Galcatawa)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/osu-web/localized.svg)](https://crowdin.com/project/osu-web)
