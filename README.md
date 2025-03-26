@@ -4,9 +4,10 @@
 
 ## Status
 
-STAGE:CATALYZING
+STAGE:ANNIHILATION
 
-[![Build status](https://images2.imgbox.com/0b/df/66PTpxUz_o.png)]
+//[![Build status](https://images2.imgbox.com/0b/df/66PTpxUz_o.png)
+]
 (https://discord.gg/g7DBAuR6)
 [![GitHub Official Release](https://img.shields.io/github/release/ppy/osu.svg)](https://github.com/ppy/osu/releases/latest)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/osu-web/localized.svg)](https://crowdin.com/project/osu-web)
