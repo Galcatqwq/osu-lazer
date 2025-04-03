@@ -17,7 +17,7 @@ namespace osu.Game.Rulesets.Mods
         public override string Acronym => "AT";
         public override IconUsage? Icon => OsuIcon.ModAuto;
         public override ModType Type => ModType.Automation;
-        public override LocalisableString Description => "Watch a perfect automated play through the song.";
+        public override LocalisableString Description => "有请2B图薄纱奥托普雷(((";
         public override double ScoreMultiplier => 1;
 
         public sealed override bool UserPlayable => false;

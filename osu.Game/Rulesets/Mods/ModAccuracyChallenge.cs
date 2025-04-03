@@ -21,7 +21,7 @@ namespace osu.Game.Rulesets.Mods
 
         public override string Acronym => "AC";
 
-        public override LocalisableString Description => "Fail if your accuracy drops too low!";
+        public override LocalisableString Description => "准确率过低时原地去世！";
 
         public override ModType Type => ModType.DifficultyIncrease;
 

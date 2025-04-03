@@ -25,7 +25,7 @@ namespace osu.Game.Rulesets.Mods
 
         public override string Acronym => "AS";
 
-        public override LocalisableString Description => "Let track speed adapt to you.";
+        public override LocalisableString Description => ""让歌曲主动适应你的节奏";
 
         public override ModType Type => ModType.Fun;
 

@@ -33,7 +33,7 @@ namespace osu.Game.Rulesets.Mods
         [SettingSource("Direction", "The direction of rotation")]
         public Bindable<RotationDirection> Direction { get; } = new Bindable<RotationDirection>();
 
-        public override string Name => "Barrel Roll";
+        public override string Name => "滚筒洗衣机";
         public override string Acronym => "BR";
         public override LocalisableString Description => "The whole playfield is on a wheel!";
         public override double ScoreMultiplier => 1;
