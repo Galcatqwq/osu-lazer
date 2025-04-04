@@ -27,7 +27,7 @@ namespace osu.Game.Rulesets.Scoring
         /// <remarks>
         /// If a custom implementation overrides <see cref="GetComboScoreChange"/> this may not be relevant.
         /// </remarks>
-        public const double COMBO_EXPONENT = 0.9999;
+        public const double COMBO_EXPONENT = 1;
 
         public const double MAX_SCORE = 100000000;
 
@@ -347,10 +347,10 @@ namespace osu.Game.Rulesets.Scoring
                     return 300;
 
                 case HitResult.SmallBonus:
-                    return 10;
+                    return 100;
 
                 case HitResult.LargeBonus:
-                    return 50;
+                    return 1000;
             }
         }
 

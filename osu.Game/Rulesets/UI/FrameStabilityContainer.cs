@@ -252,7 +252,7 @@ namespace osu.Game.Rulesets.UI
         /// <param name="proposedTime">The time which is to be displayed.</param>
         private void applyFrameStability(ref double proposedTime)
         {
-            const double sixty_frame_time = 1000.0 / 60;
+            const double sixty_frame_time = 100000.0 / 60;
 
             if (firstConsumption)
             {

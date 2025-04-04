@@ -27,7 +27,7 @@ namespace osu.Game.Rulesets.UI
 
         private InputManager inputManager;
 
-        public int RecordFrameRate = 60;
+        public int RecordFrameRate = 400;
 
         [Resolved]
         private SpectatorClient spectatorClient { get; set; }
