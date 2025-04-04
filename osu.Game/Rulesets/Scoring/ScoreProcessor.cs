@@ -27,12 +27,12 @@ namespace osu.Game.Rulesets.Scoring
         /// <remarks>
         /// If a custom implementation overrides <see cref="GetComboScoreChange"/> this may not be relevant.
         /// </remarks>
-        public const double COMBO_EXPONENT = 0.99;
+        public const double COMBO_EXPONENT = 0.9999;
 
         public const double MAX_SCORE = 100000000;
 
         private const double accuracy_cutoff_x = 1;
-        private const double accuracy_cutoff_s = 0.95;
+        private const double accuracy_cutoff_s = 0.94;
         private const double accuracy_cutoff_a = 0.9;
         private const double accuracy_cutoff_b = 0.8;
         private const double accuracy_cutoff_c = 0.7;
@@ -391,8 +391,8 @@ namespace osu.Game.Rulesets.Scoring
 
         protected virtual double ComputeTotalScore(double comboProgress, double accuracyProgress, double bonusPortion)
         {
-            return 500000 * Accuracy.Value * comboProgress +
-                   500000 * Math.Pow(Accuracy.Value, 5) * accuracyProgress +
+            return 1000000 * Accuracy.Value * comboProgress +
+                   0 * Math.Pow(Accuracy.Value, 5) * accuracyProgress +
                    bonusPortion;
         }
 
