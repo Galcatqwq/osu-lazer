@@ -30,7 +30,7 @@ osu.iOS.slnf
 若需为移动平台构建，在首次操作前可能需要运行以下命令：
 
 ```shell
-sudo dotnet workload restore 
+dotnet workload restore 
 ``` 
 这将安装完成构建所需的 Android/iOS 工具链。
 
