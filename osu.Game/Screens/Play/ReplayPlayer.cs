@@ -26,7 +26,7 @@ namespace osu.Game.Screens.Play
     [Cached]
     public partial class ReplayPlayer : Player, IKeyBindingHandler<GlobalAction>
     {
-        public const double BASE_SEEK_AMOUNT = 1000;
+        public const double BASE_SEEK_AMOUNT = 60;
 
         private readonly Func<IBeatmap, IReadOnlyList<Mod>, Score> createScore;
 
