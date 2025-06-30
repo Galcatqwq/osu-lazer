@@ -4,28 +4,35 @@
     <LangVersion>12.0</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
   <PropertyGroup>
     <ApplicationManifest>$(MSBuildThisFileDirectory)app.manifest</ApplicationManifest>
   </PropertyGroup>
+
   <ItemGroup Label="License">
     <None Include="$(MSBuildThisFileDirectory)osu.licenseheader">
       <Link>osu.licenseheader</Link>
     </None>
   </ItemGroup>
+
   <ItemGroup Label="Resources">
     <EmbeddedResource Include="Resources\**\*.*" />
   </ItemGroup>
+
   <ItemGroup Label="Code Analysis">
     <PackageReference Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="3.3.4" PrivateAssets="All" />
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)CodeAnalysis\BannedSymbols.txt" />
   </ItemGroup>
+
   <PropertyGroup Label="Code Analysis">
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)CodeAnalysis\osu.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+
   <PropertyGroup Label="Documentation">
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
   </PropertyGroup>
+
   <PropertyGroup Label="Nuget">
     <IsPackable>false</IsPackable>
     <Authors>ppy Pty Ltd</Authors>
@@ -37,4 +44,27 @@
     <Copyright>Copyright (c) 2024 ppy Pty Ltd</Copyright>
     <PackageTags>osu game</PackageTags>
   </PropertyGroup>
+
+  <PropertyGroup Label="AOT">
+    <!-- 通用AOT设置 -->
+    <PublishAot>true</PublishAot>
+    <PublishTrimmed>true</PublishTrimmed>
+    <TrimMode>partial</TrimMode>
+
+  </PropertyGroup>
+
+  <!-- 平台特定设置 -->
+  <PropertyGroup Condition="'$(RuntimeIdentifier)' == 'android-arm64'">
+    <AndroidEnablePreloadAssemblies>true</AndroidEnablePreloadAssemblies>
+    <MonoBundlingExtraArgs>--aot=full,nodebug</MonoBundlingExtraArgs>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(RuntimeIdentifier)' == 'win-x64'">
+    <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="8.0.0-*" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.0-beta" PrivateAssets="all" />
+  </ItemGroup>
 </Project>
