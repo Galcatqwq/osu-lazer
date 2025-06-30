@@ -78,6 +78,7 @@ namespace osu.Game.Graphics.UserInterfaceV2
                         case @".ogg":
                         case @".mp3":
                         case @".wav":
+                        case @".flac":
                             return FontAwesome.Regular.FileAudio;
 
                         case @".jpg":

@@ -26,6 +26,8 @@ namespace osu.Game.Rulesets.Edit.Checks
         {
             ChannelType.MP3,
             ChannelType.OGG,
+            ChannelType.FLAC,
+            ChannelType.Wave,
         };
 
         public IEnumerable<Issue> Run(BeatmapVerifierContext context)

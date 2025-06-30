@@ -31,6 +31,9 @@
     <PackageReference Include="DeepEqual" Version="2.0.0" />
     <PackageReference Include="Moq" Version="4.17.2" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="obj\Release\net8.0-android\adb.props" />
+  </ItemGroup>
   <!-- osu.Framework.Android depends on https://www.nuget.org/packages/Xamarin.AndroidX.Window,
        which - via a chain of transitive dependencies - also includes https://www.nuget.org/packages/Xamarin.Jetbrains.Annotations,
        which causes compile failures such as:

@@ -80,6 +80,7 @@ namespace osu.Game.Tests.Skins
                 string[] lookups = lookedUpFileNames.Where(f => f.StartsWith(TestSkin.SAMPLE_NAME, StringComparison.Ordinal)).ToArray();
                 return Path.GetExtension(lookups[0]) == string.Empty
                        && Path.GetExtension(lookups[1]) == ".wav"
+                       && Path.GetExtension(lookups[1]) == ".flac"
                        && Path.GetExtension(lookups[2]) == ".mp3"
                        && Path.GetExtension(lookups[3]) == ".ogg";
             });

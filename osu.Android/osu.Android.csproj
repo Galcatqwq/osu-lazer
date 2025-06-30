@@ -19,4 +19,10 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Maui.Essentials" Version="8.0.3" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="obj\Release\net8.0-android\osu.Android.csproj.CoreCompileInputs.cache" />
+    <Content Include="obj\Release\net8.0-android\osu.Android.genruntimeconfig.cache" />
+    <Content Include="obj\Release\net8.0-android\osu.Android.sourcelink.json" />
+    <Content Include="obj\Release\net8.0-android\osu.Android.xml" />
+  </ItemGroup>
 </Project>
