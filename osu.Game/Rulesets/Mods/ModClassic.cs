@@ -8,7 +8,7 @@ namespace osu.Game.Rulesets.Mods
 {
     public abstract class ModClassic : Mod
     {
-        public override string Name => "Classic Mode";
+        public override string Name => "这很Stable";
 
         public override string Acronym => "CL";
 
