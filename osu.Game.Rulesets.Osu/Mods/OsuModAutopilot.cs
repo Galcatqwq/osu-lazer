@@ -35,7 +35,7 @@ namespace osu.Game.Rulesets.Osu.Mods
 
         private OsuInputManager inputManager = null!;
 
-        private List<OsuReplayFrame> replayFrames = null!;
+        private List<OsuReplayFrame> replayFrames = new List<OsuReplayFrame>(1000);
 
         private int currentFrame = -1;
 
