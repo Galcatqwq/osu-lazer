@@ -52,12 +52,11 @@ namespace osu.Game.Rulesets.Osu.Objects.Drawables
         /// <summary>
         /// The amount of bonus score gained from spinning after the required number of spins, for display purposes.
         /// </summary>
-        public double CurrentBonusScore => score_per_tick * Math.Clamp(completedFullSpins.Value - HitObject.SpinsRequiredForBonus, 0, HitObject.MaximumBonusSpins);
+        public double CurrentBonusScore => score_per_tick * Math.Max(0, completedFullSpins.Value - HitObject.SpinsRequiredForBonus);
 
         /// <summary>
         /// The maximum amount of bonus score which can be achieved from extra spins.
         /// </summary>
-        public double MaximumBonusScore => score_per_tick * HitObject.MaximumBonusSpins;
 
         public IBindable<int> CompletedFullSpins => completedFullSpins;
 
@@ -356,15 +355,7 @@ namespace osu.Game.Rulesets.Osu.Objects.Drawables
             {
                 var tick = ticks.FirstOrDefault(t => !t.Result.HasResult);
 
-                // tick may be null if we've hit the spin limit.
-                if (tick == null)
-                {
-                    // we still want to play a sound. this will probably be a new sound in the future, but for now let's continue playing the bonus sound.
-                    // TODO: this doesn't concurrency. i can't figure out how to make it concurrency. samples are bad and need a refactor.
-                    maxBonusSample.Play();
-                }
-                else
-                    tick.TriggerResult(true);
+                tick?.TriggerResult(true);
 
                 completedFullSpins.Value++;
             }

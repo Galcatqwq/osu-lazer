@@ -123,13 +123,6 @@ namespace osu.Game.Rulesets.Osu.Skinning.Legacy
                     return;
 
                 bonusCounter.Text = DrawableSpinner.CurrentBonusScore.ToString(NumberFormatInfo.InvariantInfo);
-
-                if (DrawableSpinner.CurrentBonusScore == DrawableSpinner.MaximumBonusScore)
-                {
-                    bonusCounter.ScaleTo(1.4f).Then().ScaleTo(1.8f, 1000, Easing.Out);
-                    bonusCounter.FadeOutFromOne(500, Easing.Out);
-                }
-                else
                 {
                     bonusCounter.FadeOutFromOne(800, Easing.Out);
                     bonusCounter.ScaleTo(SPRITE_SCALE * 2f).Then().ScaleTo(SPRITE_SCALE * 1.28f, 800, Easing.Out);
