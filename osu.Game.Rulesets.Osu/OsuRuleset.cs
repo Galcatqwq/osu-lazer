@@ -147,6 +147,7 @@ namespace osu.Game.Rulesets.Osu
                     return new Mod[]
                     {
                         new OsuModRelax(),
+                        new OsuModClassic(),
                         new OsuModEasy(),
                         new OsuModNoFail(),
                         new MultiMod(new OsuModHalfTime(), new OsuModDaycore()),
@@ -167,7 +168,6 @@ namespace osu.Game.Rulesets.Osu
                 case ModType.Conversion:
                     return new Mod[]
                     {
-                        new OsuModClassic(),
                         new OsuModDifficultyAdjust(),
                         new OsuModRandom(),
                         new MultiMod(new OsuModAlternate(), new OsuModSingleTap()),
@@ -176,10 +176,9 @@ namespace osu.Game.Rulesets.Osu
                 case ModType.Automation:
                     return new Mod[]
                     {
-                        new MultiMod(new OsuModAutoplay(), new OsuModCinema()),
+                        new MultiMod(new OsuModAutoplay(), new OsuModFlower(), new OsuModCinema()),
                         new OsuModAutopilot(),
                         new OsuModSpunOut(),
-                        new OsuModFlower(),
                     };
 
                 case ModType.System:
