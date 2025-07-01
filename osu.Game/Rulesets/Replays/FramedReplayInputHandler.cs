@@ -82,7 +82,7 @@ namespace osu.Game.Rulesets.Replays
 
         protected double CurrentTime { get; private set; }
 
-        protected virtual double AllowedImportantTimeSpan => sixty_frame_time * 1.2;
+        protected virtual double AllowedImportantTimeSpan => thousand_frame_time * 1.2;
 
         protected List<ReplayFrame> Frames => replay.Frames;
 
@@ -90,7 +90,7 @@ namespace osu.Game.Rulesets.Replays
 
         private int currentFrameIndex;
 
-        private const double sixty_frame_time = 100000.0 / 60;
+        private const double thousand_frame_time = 1000.0 / 1000;
 
         protected FramedReplayInputHandler(Replay replay)
         {
