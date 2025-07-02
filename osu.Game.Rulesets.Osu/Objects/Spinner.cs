@@ -23,6 +23,11 @@ namespace osu.Game.Rulesets.Osu.Objects
         /// </summary>
         private static readonly (int min, int mid, int max) clear_rpm_range = (90, 150, 225);
 
+        /// <summary>
+        /// The RPM required to complete the spinner and receive full score at ODs [ 0, 5, 10 ].
+        /// </summary>
+        private static readonly (int min, int mid, int max) complete_rpm_range = (250, 380, 430);
+
         public double EndTime
         {
             get => StartTime + Duration;
@@ -49,6 +54,7 @@ namespace osu.Game.Rulesets.Osu.Objects
         /// <summary>
         /// Number of spins available to give bonus, beyond <see cref="SpinsRequired"/>.
         /// </summary>
+        public int MaximumBonusSpins { get; protected set; } = 1;
 
         public override Vector2 StackOffset => Vector2.Zero;
 
@@ -59,19 +65,23 @@ namespace osu.Game.Rulesets.Osu.Objects
             // The average RPS required over the length of the spinner to clear the spinner.
             double minRps = IBeatmapDifficultyInfo.DifficultyRange(difficulty.OverallDifficulty, clear_rpm_range) / 60;
 
+            // The RPS required over the length of the spinner to receive full score (all normal + bonus ticks).
+            double maxRps = IBeatmapDifficultyInfo.DifficultyRange(difficulty.OverallDifficulty, complete_rpm_range) / 60;
+
             double secondsDuration = Duration / 1000;
 
             // Allow a 0.1ms floating point precision error in the calculation of the duration.
             const double duration_error = 0.0001;
 
             SpinsRequired = (int)(minRps * secondsDuration + duration_error);
+            MaximumBonusSpins = Math.Max(0, (int)(maxRps * secondsDuration + duration_error) - SpinsRequired - bonus_spins_gap);
         }
 
         protected override void CreateNestedHitObjects(CancellationToken cancellationToken)
         {
             base.CreateNestedHitObjects(cancellationToken);
 
-            int totalSpins = SpinsRequired + bonus_spins_gap;
+            int totalSpins = MaximumBonusSpins + SpinsRequired + bonus_spins_gap;
 
             for (int i = 0; i < totalSpins; i++)
             {
