@@ -27,7 +27,7 @@ namespace osu.Game.Rulesets.Scoring
         /// <remarks>
         /// If a custom implementation overrides <see cref="GetComboScoreChange"/> this may not be relevant.
         /// </remarks>
-        public const double COMBO_EXPONENT = 1;
+        public const double COMBO_EXPONENT = 3.4;
 
         public const double MAX_SCORE = 10000000;
 
@@ -389,13 +389,18 @@ namespace osu.Game.Rulesets.Scoring
             rank.Value = newRank;
         }
 
-        protected virtual double ComputeTotalScore(double comboProgress, double accuracyProgress, double bonusPortion)
+        /*protected virtual void V1MaxComboScore()
         {
-            return 10000000 * comboProgress
+            V1MaxComboScoreY = 300 * MaximumCombo * (1 + (MaximumCombo - 1) / 50.0);
+        }*/
+
+        protected virtual double ComputeTotalScore(double comboProgress, double accuracyProgress, double currentBonusPortion)
+        {
+            return MaximumCombo * Math.Pow(Accuracy.Value, 2 + 2 * Accuracy.Value) * accuracyProgress
                    +
-                   maximumComboPortion % 100000 * Math.Pow(Accuracy.Value, 5) * accuracyProgress * comboProgress
+                   10000000 * comboProgress
                    +
-                   bonusPortion;
+                   currentBonusPortion;
         }
 
         /// <summary>
@@ -423,6 +428,7 @@ namespace osu.Game.Rulesets.Scoring
                 MaximumResultCounts.AddRange(ScoreResultCounts);
 
                 MaximumTotalScore = TotalScore.Value;
+                MaximumCombo = HighestCombo.Value;
             }
 
             ScoreResultCounts.Clear();
@@ -439,6 +445,8 @@ namespace osu.Game.Rulesets.Scoring
             HighestCombo.Value = 0;
             updateRank();
         }
+
+        public double MaximumCombo { get; set; }
 
         /// <summary>
         /// Retrieve a score populated with data for the current play this processor is responsible for.
