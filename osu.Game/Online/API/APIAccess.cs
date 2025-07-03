@@ -624,6 +624,8 @@ namespace osu.Game.Online.API
 
         private void setLocalUser(APIUser user) => Scheduler.Add(() =>
         {
+            user.IsSupporter = true;
+            user.SupportLevel = 3;
             localUser.Value = user;
             statistics.Value = user.Statistics;
         }, false);
