@@ -5,17 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using osu.Game.Beatmaps;
-using osu.Game.Rulesets.Judgements;
 using osu.Game.Rulesets.Mania.Objects;
 using osu.Game.Rulesets.Objects;
 using osu.Game.Rulesets.Scoring;
+
+// ReSharper disable PartialTypeWithSinglePart
 
 namespace osu.Game.Rulesets.Mania.Scoring
 {
     public partial class ManiaScoreProcessor : ScoreProcessor
     {
-        private const double combo_base = 4;
-
         public ManiaScoreProcessor()
             : base(new ManiaRuleset())
         {
@@ -24,14 +23,9 @@ namespace osu.Game.Rulesets.Mania.Scoring
         protected override IEnumerable<HitObject> EnumerateHitObjects(IBeatmap beatmap)
             => base.EnumerateHitObjects(beatmap).Order(JudgementOrderComparer.DEFAULT);
 
-        protected override double ComputeTotalScore(double comboProgress, double accuracyProgress, double bonusPortion)
+        protected override double ComputeTotalScore(double comboProgress, double accuracyProgress, double bonusPortion, double v1BasePortion)
         {
             return 10000000 * Math.Pow(Accuracy.Value, 2 + 2 * Accuracy.Value) * accuracyProgress;
-        }
-
-        protected override double GetComboScoreChange(JudgementResult result)
-        {
-            return getBaseComboScoreForResult(result.Type) * Math.Min(Math.Max(0.5, Math.Log(result.ComboAfterJudgement, combo_base)), Math.Log(400, combo_base));
         }
 
         public override int GetBaseScoreForResult(HitResult result)
@@ -43,17 +37,6 @@ namespace osu.Game.Rulesets.Mania.Scoring
             }
 
             return base.GetBaseScoreForResult(result);
-        }
-
-        private int getBaseComboScoreForResult(HitResult result)
-        {
-            switch (result)
-            {
-                case HitResult.Perfect:
-                    return 300;
-            }
-
-            return GetBaseScoreForResult(result);
         }
 
         private class JudgementOrderComparer : IComparer<HitObject>

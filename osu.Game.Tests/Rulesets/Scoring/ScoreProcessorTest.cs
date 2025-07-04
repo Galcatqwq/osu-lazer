@@ -457,7 +457,7 @@ namespace osu.Game.Tests.Rulesets.Scoring
             {
             }
 
-            protected override double ComputeTotalScore(double comboProgress, double accuracyProgress, double bonusPortion)
+            protected override double ComputeTotalScore(double comboProgress, double accuracyProgress, double bonusPortion, double currentV1BasePortion)
             {
                 return 500000 * comboProgress +
                        500000 * Accuracy.Value * accuracyProgress +
