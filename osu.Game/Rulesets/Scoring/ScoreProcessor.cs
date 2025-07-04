@@ -3,7 +3,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+//using System.Diagnostics;
 using System.Linq;
 using MessagePack;
 using osu.Framework.Bindables;
@@ -27,9 +27,9 @@ namespace osu.Game.Rulesets.Scoring
         /// <remarks>
         /// If a custom implementation overrides <see cref="GetComboScoreChange"/> this may not be relevant.
         /// </remarks>
-        public const double COMBO_EXPONENT = 3.4;
+        public const double COMBO_EXPONENT = 1;
 
-        public const double MAX_SCORE = 10000000;
+        public const double MAX_SCORE = 100000000;
 
         private const double accuracy_cutoff_x = 1;
         private const double accuracy_cutoff_s = 0.94;
@@ -161,6 +161,11 @@ namespace osu.Game.Rulesets.Scoring
         private double currentComboPortion;
 
         /// <summary>
+        /// 当前时间点的V1得分.
+        /// </summary>
+        private double currentV1BasePortion;
+
+        /// <summary>
         /// The bonus score at the current point in time.
         /// </summary>
         private double currentBonusPortion;
@@ -246,6 +251,7 @@ namespace osu.Game.Rulesets.Scoring
                 currentBonusPortion += GetBonusScoreChange(result);
             else if (result.Type.IsScorable())
                 currentComboPortion += GetComboScoreChange(result);
+            currentV1BasePortion += GetV1ScoreChange(result);
 
             ApplyScoreChange(result);
 
@@ -293,12 +299,13 @@ namespace osu.Game.Rulesets.Scoring
 
             if (result.Type.IsBonus())
                 currentBonusPortion -= GetBonusScoreChange(result);
+
             else if (result.Type.IsScorable())
                 currentComboPortion -= GetComboScoreChange(result);
+            currentV1BasePortion -= GetV1ScoreChange(result);
 
             RemoveScoreChange(result);
 
-            Debug.Assert(hitEvents.Count > 0);
             lastHitObject = hitEvents[^1].LastHitObject;
             hitEvents.RemoveAt(hitEvents.Count - 1);
 
@@ -309,13 +316,30 @@ namespace osu.Game.Rulesets.Scoring
         /// Gets the final score change to be applied to the bonus portion of the score.
         /// </summary>
         /// <param name="result">The judgement result.</param>
-        protected virtual double GetBonusScoreChange(JudgementResult result) => GetBaseScoreForResult(result.Type);
+        protected virtual double GetBonusScoreChange(JudgementResult result)
+        {
+            return GetBaseScoreForResult(result.Type);
+        }
 
         /// <summary>
         /// Gets the final score change to be applied to the combo portion of the score.
         /// </summary>
         /// <param name="result">The judgement result.</param>
-        protected virtual double GetComboScoreChange(JudgementResult result) => GetBaseScoreForResult(result.Judgement.MaxResult) * Math.Pow(result.ComboAfterJudgement, COMBO_EXPONENT);
+        protected virtual double GetComboScoreChange(JudgementResult result)
+        {
+            //return GetBaseScoreForResult(result.Judgement.MaxResult) * Math.Pow(result.ComboAfterJudgement, COMBO_EXPONENT);
+            return GetBaseScoreForResult(result.Judgement.MaxResult) * Math.Pow(result.ComboAfterJudgement, COMBO_EXPONENT);
+        }
+
+        /// <summary>
+        ///V1得分计算
+        /// </summary>
+        protected virtual double GetV1ScoreChange(JudgementResult result)
+        {
+            double v1BaseScore = GetBaseScoreForResult(result.Type);
+            double baseCombo = result.ComboAfterJudgement;
+            return v1BaseScore * (1 + (baseCombo - 1) / 25); // 模拟 stable 的增长模式
+        }
 
         public virtual int GetBaseScoreForResult(HitResult result)
         {
@@ -362,7 +386,7 @@ namespace osu.Game.Rulesets.Scoring
         {
         }
 
-        private void updateScore()
+        /*private void updateScore()
         {
             Accuracy.Value = currentMaximumBaseScore > 0 ? currentBaseScore / currentMaximumBaseScore : 1;
             MinimumAccuracy.Value = maximumBaseScore > 0 ? currentBaseScore / maximumBaseScore : 0;
@@ -372,6 +396,16 @@ namespace osu.Game.Rulesets.Scoring
             double accuracyProgress = maximumAccuracyJudgementCount > 0 ? (double)currentAccuracyJudgementCount / maximumAccuracyJudgementCount : 1;
 
             TotalScoreWithoutMods.Value = (long)Math.Round(ComputeTotalScore(comboProgress, accuracyProgress, currentBonusPortion));
+            TotalScore.Value = (long)Math.Round(TotalScoreWithoutMods.Value * scoreMultiplier);
+        }*/
+        private void updateScore()
+        {
+            Accuracy.Value = currentMaximumBaseScore > 0 ? currentBaseScore / currentMaximumBaseScore : 1;
+            MinimumAccuracy.Value = maximumBaseScore > 0 ? currentBaseScore / maximumBaseScore : 0;
+            MaximumAccuracy.Value = maximumBaseScore > 0 ? (currentBaseScore + (maximumBaseScore - currentMaximumBaseScore)) / maximumBaseScore : 1;
+            double accuracyProgress = maximumAccuracyJudgementCount > 0 ? (double)currentAccuracyJudgementCount / maximumAccuracyJudgementCount : 1;
+
+            TotalScoreWithoutMods.Value = (long)Math.Round(ComputeTotalScore(currentComboPortion, currentBonusPortion, accuracyProgress, currentV1BasePortion));
             TotalScore.Value = (long)Math.Round(TotalScoreWithoutMods.Value * scoreMultiplier);
         }
 
@@ -389,18 +423,9 @@ namespace osu.Game.Rulesets.Scoring
             rank.Value = newRank;
         }
 
-        /*protected virtual void V1MaxComboScore()
+        protected virtual double ComputeTotalScore(double comboProgress, double bonusPortion, double accuracyProgress, double v1BasePortion)
         {
-            V1MaxComboScoreY = 300 * MaximumCombo * (1 + (MaximumCombo - 1) / 50.0);
-        }*/
-
-        protected virtual double ComputeTotalScore(double comboProgress, double accuracyProgress, double currentBonusPortion)
-        {
-            return MaximumCombo * Math.Pow(Accuracy.Value, 2 + 2 * Accuracy.Value) * accuracyProgress
-                   +
-                   10000000 * comboProgress
-                   +
-                   currentBonusPortion;
+            return v1BasePortion + bonusPortion;
         }
 
         /// <summary>
@@ -438,6 +463,7 @@ namespace osu.Game.Rulesets.Scoring
             currentAccuracyJudgementCount = 0;
             currentComboPortion = 0;
             currentBonusPortion = 0;
+            currentV1BasePortion = 0;
 
             TotalScore.Value = 0;
             Accuracy.Value = 1;
@@ -513,7 +539,8 @@ namespace osu.Game.Rulesets.Scoring
             BaseScore = currentBaseScore,
             AccuracyJudgementCount = currentAccuracyJudgementCount,
             ComboPortion = currentComboPortion,
-            BonusPortion = currentBonusPortion
+            BonusPortion = currentBonusPortion,
+            V1BasePortion = currentV1BasePortion
         };
 
         public void SetScoreProcessorStatistics(ScoreProcessorStatistics statistics)
@@ -523,7 +550,10 @@ namespace osu.Game.Rulesets.Scoring
             currentAccuracyJudgementCount = statistics.AccuracyJudgementCount;
             currentComboPortion = statistics.ComboPortion;
             currentBonusPortion = statistics.BonusPortion;
+            currentV1BasePortion = statistics.V1BasePortion;
         }
+
+        public double V1BasePortion { get; set; }
 
         #region Static helper methods
 
@@ -637,5 +667,7 @@ namespace osu.Game.Rulesets.Scoring
         /// </summary>
         [Key(4)]
         public double BonusPortion { get; set; }
+
+        public double V1BasePortion { get; set; }
     }
 }
