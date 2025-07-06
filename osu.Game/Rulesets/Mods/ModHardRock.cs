@@ -11,11 +11,11 @@ namespace osu.Game.Rulesets.Mods
 {
     public abstract class ModHardRock : Mod, IApplicableToDifficulty
     {
-        public override string Name => "逆 位 卡";
+        public override string Name => "逆位卡";
         public override string Acronym => "HR";
         public override IconUsage? Icon => OsuIcon.ModHardRock;
         public override ModType Type => ModType.DifficultyIncrease;
-        public override LocalisableString Description => "逆 位 卡";
+        public override LocalisableString Description => "你的权利开始流逝....";
         public override Type[] IncompatibleMods => new[] { typeof(ModEasy), typeof(ModDifficultyAdjust) };
         public override bool Ranked => UsesDefaultConfiguration;
 
