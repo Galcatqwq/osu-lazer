@@ -61,6 +61,6 @@
     <Content Include="obj\Release\net8.0\osu.Game.csproj.Fody.RuntimeCopyLocal.cache" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\osu-resources\osu.Game.Resources\osu.Game.Resources.csproj" />
+    <ProjectReference Include="..\..\Yukikoi-lazer-resources\osu.Game.Resources\osu.Game.Resources.csproj" />
   </ItemGroup>
 </Project>
