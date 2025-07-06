@@ -336,8 +336,13 @@ namespace osu.Game.Rulesets.Scoring
         /// </summary>
         protected virtual double GetV1ScoreChange(JudgementResult result)
         {
-            if (result.Type == HitResult.SmallBonus || result.Type == HitResult.LargeBonus)
+            //绕过转盘分(转盘分在BonusScoreChange中计算,故此不做处理)
+            if (result.Type is HitResult.SmallBonus or HitResult.LargeBonus)
                 return 0;
+
+            //绕过滑条点分数
+            if (result.Type is HitResult.SmallTickHit or HitResult.LargeTickHit or HitResult.SliderTailHit)
+                return GetBaseScoreForResult(result.Type);
 
             double v1BaseScore = GetBaseScoreForResult(result.Type);
             double baseCombo = result.ComboAfterJudgement;
@@ -355,10 +360,10 @@ namespace osu.Game.Rulesets.Scoring
                     return 10;
 
                 case HitResult.LargeTickHit:
-                    return 30;
+                    return 10;
 
                 case HitResult.SliderTailHit:
-                    return 150;
+                    return 30;
 
                 case HitResult.Meh:
                     return 50;
