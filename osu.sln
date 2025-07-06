@@ -53,7 +53,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rulesets", "Rulesets", "{CA1DD4A8-FA22-48E0-860F-D57A7ED7D426}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "osu.Game.Resources", "..\osu-resources\osu.Game.Resources\osu.Game.Resources.csproj", "{E9CAD7A3-AF31-4106-A453-7F790D134730}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "osu.Game.Resources", "..\Yukikoi-lazer-Resources\osu.Game.Resources\osu.Game.Resources.csproj", "{E9CAD7A3-AF31-4106-A453-7F790D134730}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

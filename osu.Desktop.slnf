@@ -12,7 +12,7 @@
                                       "osu.Game.Tests\\osu.Game.Tests.csproj",
                                       "osu.Game.Tournament\\osu.Game.Tournament.csproj",
                                       "osu.Game\\osu.Game.csproj",
-                                      "../osu-resources/osu.Game.Resources/osu.Game.Resources.csproj"
+                                      "../Yukikoi-lazer-Resources/osu.Game.Resources/osu.Game.Resources.csproj"
                                   ]
                  }
 }
