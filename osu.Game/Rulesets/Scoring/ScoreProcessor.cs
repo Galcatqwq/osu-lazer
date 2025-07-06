@@ -336,6 +336,9 @@ namespace osu.Game.Rulesets.Scoring
         /// </summary>
         protected virtual double GetV1ScoreChange(JudgementResult result)
         {
+            if (result.Type == HitResult.SmallBonus || result.Type == HitResult.LargeBonus)
+                return 0;
+
             double v1BaseScore = GetBaseScoreForResult(result.Type);
             double baseCombo = result.ComboAfterJudgement;
             return v1BaseScore * (1 + (baseCombo - 1) / 25); // 模拟 stable 的增长模式
