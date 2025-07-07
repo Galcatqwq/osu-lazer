@@ -346,7 +346,7 @@ namespace osu.Game.Rulesets.Scoring
 
             double v1BaseScore = GetBaseScoreForResult(result.Type);
             double baseCombo = result.ComboAfterJudgement;
-            return v1BaseScore * (1 + (baseCombo - 1) / 25); // 模拟 stable 的增长模式
+            return v1BaseScore * (1 + (baseCombo - 1) * scoreMultiplier / 25); // 模拟 stable 的增长模式
         }
 
         public virtual int GetBaseScoreForResult(HitResult result)
@@ -404,7 +404,8 @@ namespace osu.Game.Rulesets.Scoring
             double accuracyProgress = maximumAccuracyJudgementCount > 0 ? (double)currentAccuracyJudgementCount / maximumAccuracyJudgementCount : 1;
 
             TotalScoreWithoutMods.Value = (long)Math.Round(ComputeTotalScore(currentComboPortion, accuracyProgress, currentBonusPortion, currentV1BasePortion));
-            TotalScore.Value = (long)Math.Round(TotalScoreWithoutMods.Value * scoreMultiplier);
+            //TotalScore.Value = (long)Math.Round(TotalScoreWithoutMods.Value * scoreMultiplier);
+            TotalScore.Value = (long)Math.Round((decimal)(TotalScoreWithoutMods.Value));
         }
 
         private void updateRank()
