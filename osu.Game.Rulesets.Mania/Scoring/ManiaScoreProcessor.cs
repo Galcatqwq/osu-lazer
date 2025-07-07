@@ -46,8 +46,6 @@ namespace osu.Game.Rulesets.Mania.Scoring
                 case HitResult.Meh:     return 50;  // 50
                 default:                return 0;   // MISS
             }
-
-            //return base.GetBaseScoreForResult(result);
         }
 
         protected override double GetV1ScoreChange(JudgementResult result)
