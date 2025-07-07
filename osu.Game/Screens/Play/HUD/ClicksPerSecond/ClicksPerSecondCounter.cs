@@ -19,7 +19,7 @@ namespace osu.Game.Screens.Play.HUD.ClicksPerSecond
         [Resolved]
         private ClicksPerSecondController controller { get; set; } = null!;
 
-        protected override double RollingDuration => 175;
+        protected override double RollingDuration => 0;
 
         public bool UsesFixedAnchor { get; set; }
 
