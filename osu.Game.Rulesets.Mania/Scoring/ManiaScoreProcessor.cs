@@ -1,20 +1,32 @@
 ﻿// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the MIT Licence.
 // See the LICENCE file in the repository root for full licence text.
 
-using System;
+//using System;
+
 using System.Collections.Generic;
 using System.Linq;
 using osu.Game.Beatmaps;
+using osu.Game.Rulesets.Judgements;
 using osu.Game.Rulesets.Mania.Objects;
 using osu.Game.Rulesets.Objects;
 using osu.Game.Rulesets.Scoring;
+using osu.Game.Scoring;
 
+// ReSharper disable MissingBlankLines
+// ReSharper disable MultipleSpaces
 // ReSharper disable PartialTypeWithSinglePart
 
 namespace osu.Game.Rulesets.Mania.Scoring
 {
     public partial class ManiaScoreProcessor : ScoreProcessor
     {
+        private const double accuracy_cutoff_x = 1;
+        private const double accuracy_cutoff_s = 0.95;
+        private const double accuracy_cutoff_a = 0.9;
+        private const double accuracy_cutoff_b = 0.8;
+        private const double accuracy_cutoff_c = 0.7;
+        private const double accuracy_cutoff_d = 0;
+
         public ManiaScoreProcessor()
             : base(new ManiaRuleset())
         {
@@ -23,20 +35,45 @@ namespace osu.Game.Rulesets.Mania.Scoring
         protected override IEnumerable<HitObject> EnumerateHitObjects(IBeatmap beatmap)
             => base.EnumerateHitObjects(beatmap).Order(JudgementOrderComparer.DEFAULT);
 
-        protected override double ComputeTotalScore(double comboProgress, double accuracyProgress, double bonusPortion, double v1BasePortion)
-        {
-            return 10000000 * Math.Pow(Accuracy.Value, 2 + 2 * Accuracy.Value) * accuracyProgress;
-        }
-
         public override int GetBaseScoreForResult(HitResult result)
         {
             switch (result)
             {
-                case HitResult.Perfect:
-                    return 305;
+                case HitResult.Perfect: return 320; // MAX
+                case HitResult.Great:   return 300; // 300
+                case HitResult.Good:    return 200; // 200
+                case HitResult.Ok:      return 100; // 100
+                case HitResult.Meh:     return 50;  // 50
+                default:                return 0;   // MISS
             }
 
-            return base.GetBaseScoreForResult(result);
+            //return base.GetBaseScoreForResult(result);
+        }
+
+        protected override double GetV1ScoreChange(JudgementResult result)
+        {
+            return GetBaseScoreForResult(result.Type);
+        }
+
+        protected override double ComputeTotalScore(double comboProgress, double accuracyProgress, double bonusPortion, double currentV1BasePortion)
+        {
+            return currentV1BasePortion;
+        }
+
+        public override ScoreRank RankFromScore(double accuracy, IReadOnlyDictionary<HitResult, int> results)
+        {
+            if (accuracy == accuracy_cutoff_x)
+                return ScoreRank.X;
+            if (accuracy >= accuracy_cutoff_s)
+                return ScoreRank.S;
+            if (accuracy >= accuracy_cutoff_a)
+                return ScoreRank.A;
+            if (accuracy >= accuracy_cutoff_b)
+                return ScoreRank.B;
+            if (accuracy >= accuracy_cutoff_c)
+                return ScoreRank.C;
+
+            return ScoreRank.D;
         }
 
         private class JudgementOrderComparer : IComparer<HitObject>
