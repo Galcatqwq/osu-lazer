@@ -7,6 +7,8 @@ using osu.Game.Rulesets.Osu.Judgements;
 using osu.Game.Rulesets.Scoring;
 using osu.Game.Scoring;
 
+// ReSharper disable PartialTypeWithSinglePart
+
 namespace osu.Game.Rulesets.Osu.Scoring
 {
     public partial class OsuScoreProcessor : ScoreProcessor
