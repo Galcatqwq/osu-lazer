@@ -13,6 +13,7 @@ using osu.Game.Rulesets.Osu.Objects;
 using osu.Game.Rulesets.Osu.Replays;
 using osu.Game.Rulesets.Osu.UI;
 using osu.Game.Rulesets.UI;
+using osuTK;
 
 namespace osu.Game.Rulesets.Osu.Mods
 {
@@ -37,24 +38,52 @@ namespace osu.Game.Rulesets.Osu.Mods
 
         private List<OsuReplayFrame> replayFrames = new List<OsuReplayFrame>(1000);
 
-        private int currentFrame = -1;
+        public int CurrentFrame = -1;
 
         public void Update(Playfield playfield)
         {
-            if (currentFrame == replayFrames.Count - 1) return;
+            if (replayFrames.Count == 0) return;
 
             double time = playfield.Clock.CurrentTime;
 
-            // Very naive implementation of autopilot based on proximity to replay frames.
-            // Special case for the first frame is required to ensure the mouse is in a sane position until the actual time of the first frame is hit.
-            // TODO: this needs to be based on user interactions to better match stable (pausing until judgement is registered).
-            if (currentFrame < 0 || Math.Abs(replayFrames[currentFrame + 1].Time - time) <= Math.Abs(replayFrames[currentFrame].Time - time))
+            // 找到当前时间对应的帧区间（binary search 优化性能）
+            int targetFrame = findFrameIndexForTime(time);
+            if (targetFrame < 0) return;
+
+            // 插值计算当前位置（如果介于两帧之间）
+            Vector2 position;
+
+            if (targetFrame < replayFrames.Count - 1 && time > replayFrames[targetFrame].Time)
             {
-                currentFrame++;
-                new MousePositionAbsoluteInput { Position = playfield.ToScreenSpace(replayFrames[currentFrame].Position) }.Apply(inputManager.CurrentState, inputManager);
+                double t = (time - replayFrames[targetFrame].Time) / (replayFrames[targetFrame + 1].Time - replayFrames[targetFrame].Time);
+                position = Vector2.Lerp(replayFrames[targetFrame].Position, replayFrames[targetFrame + 1].Position, (float)t);
+            }
+            else
+            {
+                position = replayFrames[targetFrame].Position;
             }
 
-            // TODO: Implement the functionality to automatically spin spinners
+            // 应用光标位置
+            new MousePositionAbsoluteInput { Position = playfield.ToScreenSpace(position) }.Apply(inputManager.CurrentState, inputManager);
+        }
+
+        private int findFrameIndexForTime(double time)
+        {
+            // 使用二分查找优化性能（replayFrames 已按时间排序）
+            int low = 0, high = replayFrames.Count - 1;
+
+            while (low <= high)
+            {
+                int mid = (low + high) / 2;
+                if (replayFrames[mid].Time < time)
+                    low = mid + 1;
+                else if (replayFrames[mid].Time > time)
+                    high = mid - 1;
+                else
+                    return mid;
+            }
+
+            return high; // 返回最后一个小于 time 的帧
         }
 
         public void ApplyToDrawableRuleset(DrawableRuleset<OsuHitObject> drawableRuleset)
