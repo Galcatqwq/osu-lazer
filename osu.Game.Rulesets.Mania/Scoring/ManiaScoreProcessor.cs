@@ -39,7 +39,7 @@ namespace osu.Game.Rulesets.Mania.Scoring
         {
             switch (result)
             {
-                case HitResult.Perfect: return 320; // MAX
+                case HitResult.Perfect:  // MAX返回Great相同分值以使准确率权重相等
                 case HitResult.Great:   return 300; // 300
                 case HitResult.Good:    return 200; // 200
                 case HitResult.Ok:      return 100; // 100
@@ -50,6 +50,10 @@ namespace osu.Game.Rulesets.Mania.Scoring
 
         protected override double GetV1ScoreChange(JudgementResult result)
         {
+            if (result.Type is  HitResult.Perfect)
+            {
+                return 320; // 恢复MAX原本分数
+            }
             return GetBaseScoreForResult(result.Type);
         }
 
