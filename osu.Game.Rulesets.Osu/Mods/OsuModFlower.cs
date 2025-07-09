@@ -16,11 +16,11 @@ namespace osu.Game.Rulesets.Osu.Mods
 {
     public class OsuModFlower : ModAutoplay
     {
-        public override string Name => "Cusordance";
+        public override string Name => "Dance Hack osu";
 
         public override string Acronym => "CD";
 
-        public override LocalisableString Description => "观看 lazer!dance";
+        public override LocalisableString Description => "Well I could Fap To This";
 
         public override IconUsage? Icon => null;
 

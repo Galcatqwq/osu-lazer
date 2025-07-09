@@ -146,7 +146,6 @@ namespace osu.Game.Rulesets.Osu
                 case ModType.DifficultyReduction:
                     return new Mod[]
                     {
-                        new OsuModRelax(),
                         new OsuModClassic(),
                         new OsuModEasy(),
                         new OsuModNoFail(),
@@ -177,6 +176,7 @@ namespace osu.Game.Rulesets.Osu
                     return new Mod[]
                     {
                         new MultiMod(new OsuModAutoplay(), new OsuModFlower(), new OsuModCinema()),
+                        new OsuModRelax(),
                         new OsuModAutopilot(),
                         new OsuModSpunOut(),
                     };

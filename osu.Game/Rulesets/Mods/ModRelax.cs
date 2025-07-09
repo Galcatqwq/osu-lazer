@@ -9,11 +9,11 @@ namespace osu.Game.Rulesets.Mods
 {
     public abstract class ModRelax : Mod
     {
-        public override string Name => "Relax Mode";
+        public override string Name => "休闲";
         public override string Acronym => "RX";
         public override IconUsage? Icon => OsuIcon.ModRelax;
         public override ModType Type => ModType.Automation;
-        public override double ScoreMultiplier => 1;
+        public override double ScoreMultiplier => 0;
         public override bool Ranked => true;
         public override Type[] IncompatibleMods => new[] { typeof(ModAutoplay) };
     }

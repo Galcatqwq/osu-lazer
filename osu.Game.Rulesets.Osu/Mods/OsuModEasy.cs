@@ -8,7 +8,7 @@ namespace osu.Game.Rulesets.Osu.Mods
 {
     public class OsuModEasy : ModEasyWithExtraLives
     {
-        public override string Name => "Easy你妈";
+        public override string Name => "";
 
         public override LocalisableString Description => @"更大的圆圈(喘气),更少的扣血(吐血),更低的准确率要求(黑视),并且拥有额外生命!(全部木大!)";
     }
