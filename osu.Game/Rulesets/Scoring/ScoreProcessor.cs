@@ -405,7 +405,7 @@ namespace osu.Game.Rulesets.Scoring
 
             TotalScoreWithoutMods.Value = (long)Math.Round(ComputeTotalScore(currentComboPortion, accuracyProgress, currentBonusPortion, currentV1BasePortion));
             //TotalScore.Value = (long)Math.Round(TotalScoreWithoutMods.Value * scoreMultiplier);
-            TotalScore.Value = (long)Math.Round((decimal)(TotalScoreWithoutMods.Value));
+            TotalScore.Value = (long)Math.Round((double)TotalScoreWithoutMods.Value);
         }
 
         private void updateRank()
