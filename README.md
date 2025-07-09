@@ -2,7 +2,7 @@
 
 <h3 align="center">节奏只需*点击一下*即可！</h3>
 
-<h3 align="center">点击https://osu.ppy.sh访问官方网站owo</h3>
+<h3 align="center">点击 https://osu.ppy.sh 访问官方网站owo</h3>
 
 <p align="center">
 <img width="500" alt="osu! logo" src="assets/lazer.png">
