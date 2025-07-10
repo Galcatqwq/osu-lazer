@@ -10,6 +10,9 @@ namespace osu.Game.Screens.Play.HUD
 {
     public partial class DefaultScoreCounter : GameplayScoreCounter, ISerialisableDrawable
     {
+        protected override double RollingDuration => 500;
+        protected override Easing RollingEasing => Easing.Out;
+
         public DefaultScoreCounter()
         {
             Anchor = Anchor.TopCentre;
