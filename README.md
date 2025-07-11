@@ -1,6 +1,6 @@
 [![Yukikoi Melt](https://images2.imgbox.com/0b/df/66PTpxUz_o.png)](https://t.me/Yukikoi_Melt)
 
-<h3 align="center">节奏只需*点击一下*即可！</h3>
+<h3 align="center">实验性的自定义osu!(Yukikoi-lazer)节奏只需*点击一下*即可！</h3>
 
 <h3 align="center">点击 https://osu.ppy.sh 访问官方网站owo</h3>
 
