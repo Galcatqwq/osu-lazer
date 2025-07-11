@@ -25,7 +25,6 @@ namespace osu.Game.Rulesets.Mania.Scoring
         private const double accuracy_cutoff_a = 0.9;
         private const double accuracy_cutoff_b = 0.8;
         private const double accuracy_cutoff_c = 0.7;
-        private const double accuracy_cutoff_d = 0;
 
         public ManiaScoreProcessor()
             : base(new ManiaRuleset())
@@ -57,9 +56,9 @@ namespace osu.Game.Rulesets.Mania.Scoring
             return GetBaseScoreForResult(result.Type);
         }
 
-        protected override double ComputeTotalScore(double comboProgress, double accuracyProgress, double bonusPortion, double currentV1BasePortion)
+        protected override double ComputeTotalScore(double comboProgress, double accuracyProgress, double bonusPortion, double v1Portion)
         {
-            return currentV1BasePortion;
+            return v1Portion;
         }
 
         public override ScoreRank RankFromScore(double accuracy, IReadOnlyDictionary<HitResult, int> results)

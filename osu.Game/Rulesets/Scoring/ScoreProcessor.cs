@@ -346,8 +346,9 @@ namespace osu.Game.Rulesets.Scoring
 
             double hitvalue = GetBaseScoreForResult(result.Type);
             double combomultiplier = result.ComboAfterJudgement;
-            double difficultymultiplier = 0;
+            //double difficultymultiplier = 0;
             //TODO:难度倍率待实现
+            //Difficulty multiplier = Round((HP Drain + Circle Size + Overall Difficulty + Clamp(Hit object count / Drain time in seconds * 8, 0, 16)) / 38 * 5)
             double modmultiplier = scoreMultiplier;
             return hitvalue * (1 + (combomultiplier - 1) * modmultiplier / 25); // 模拟 stable 的增长模式
         }
