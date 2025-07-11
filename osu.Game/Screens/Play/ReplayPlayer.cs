@@ -16,7 +16,6 @@ using osu.Game.Configuration;
 using osu.Game.Input.Bindings;
 using osu.Game.Rulesets.Mods;
 using osu.Game.Scoring;
-using osu.Game.Screens.Play.HUD;
 using osu.Game.Screens.Play.PlayerSettings;
 using osu.Game.Screens.Ranking;
 using osu.Game.Users;
@@ -84,13 +83,6 @@ namespace osu.Game.Screens.Play
         protected override Task ImportScore(Score score) => Task.CompletedTask;
 
         public readonly BindableList<ScoreInfo> LeaderboardScores = new BindableList<ScoreInfo>();
-
-        protected override GameplayLeaderboard CreateGameplayLeaderboard() =>
-            new SoloGameplayLeaderboard(Score.ScoreInfo.User)
-            {
-                AlwaysVisible = { Value = true },
-                Scores = { BindTarget = LeaderboardScores }
-            };
 
         protected override ResultsScreen CreateResults(ScoreInfo score) => new SoloResultsScreen(score);
 

@@ -5,7 +5,6 @@
 
 using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using osu.Framework.Allocation;
 using osu.Framework.Bindables;
@@ -16,7 +15,6 @@ using osu.Game.Online.Multiplayer;
 using osu.Game.Online.Rooms;
 using osu.Game.Scoring;
 using osu.Game.Screens.Play;
-using osu.Game.Screens.Play.HUD;
 using osu.Game.Users;
 
 namespace osu.Game.Screens.OnlinePlay.Multiplayer
@@ -37,8 +35,6 @@ namespace osu.Game.Screens.OnlinePlay.Multiplayer
         private readonly MultiplayerRoomUser[] users;
 
         private LoadingLayer loadingDisplay;
-
-        private MultiplayerGameplayLeaderboard multiplayerLeaderboard;
 
         /// <summary>
         /// Construct a multiplayer player.
@@ -74,25 +70,6 @@ namespace osu.Game.Screens.OnlinePlay.Multiplayer
             }, chat => HUDOverlay.LeaderboardFlow.Insert(2, chat));
 
             HUDOverlay.Add(loadingDisplay = new LoadingLayer(true) { Depth = float.MaxValue });
-        }
-
-        protected override GameplayLeaderboard CreateGameplayLeaderboard() => multiplayerLeaderboard = new MultiplayerGameplayLeaderboard(users);
-
-        protected override void AddLeaderboardToHUD(GameplayLeaderboard leaderboard)
-        {
-            Debug.Assert(leaderboard == multiplayerLeaderboard);
-
-            HUDOverlay.LeaderboardFlow.Insert(0, leaderboard);
-
-            if (multiplayerLeaderboard.TeamScores.Count >= 2)
-            {
-                LoadComponentAsync(new GameplayMatchScoreDisplay
-                {
-                    Team1Score = { BindTarget = multiplayerLeaderboard.TeamScores.First().Value },
-                    Team2Score = { BindTarget = multiplayerLeaderboard.TeamScores.Last().Value },
-                    Expanded = { BindTarget = HUDOverlay.ShowHud },
-                }, scoreDisplay => HUDOverlay.LeaderboardFlow.Insert(1, scoreDisplay));
-            }
         }
 
         protected override void LoadAsyncComplete()

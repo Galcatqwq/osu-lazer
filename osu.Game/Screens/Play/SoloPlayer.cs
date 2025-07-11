@@ -13,7 +13,6 @@ using osu.Game.Online.API;
 using osu.Game.Online.Rooms;
 using osu.Game.Online.Solo;
 using osu.Game.Scoring;
-using osu.Game.Screens.Play.HUD;
 
 namespace osu.Game.Screens.Play
 {
@@ -44,13 +43,6 @@ namespace osu.Game.Screens.Play
         }
 
         public readonly BindableList<ScoreInfo> LeaderboardScores = new BindableList<ScoreInfo>();
-
-        protected override GameplayLeaderboard CreateGameplayLeaderboard() =>
-            new SoloGameplayLeaderboard(Score.ScoreInfo.User)
-            {
-                AlwaysVisible = { Value = false },
-                Scores = { BindTarget = LeaderboardScores }
-            };
 
         protected override bool ShouldExitOnTokenRetrievalFailure(Exception exception) => false;
 
