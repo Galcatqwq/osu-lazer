@@ -6,14 +6,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using osu.Framework.Localisation;
-using osu.Game.Rulesets.Judgements;
 using osu.Game.Rulesets.Mods;
 using osu.Game.Rulesets.Objects.Types;
 using osu.Game.Rulesets.Osu.Objects;
 using osu.Game.Rulesets.Osu.Objects.Drawables;
 using osu.Game.Rulesets.Osu.UI;
 using osu.Game.Rulesets.Replays;
-using osu.Game.Rulesets.Scoring;
 using osu.Game.Rulesets.UI;
 using osu.Game.Screens.Play;
 using static osu.Game.Input.Handlers.ReplayInputHandler;
@@ -206,27 +204,4 @@ namespace osu.Game.Rulesets.Osu.Mods
             }
         }
     }
-
-    public partial class RelaxScoreProcessor : ScoreProcessor
-    {
-        public RelaxScoreProcessor(Ruleset ruleset)
-            : base(ruleset)
-        {
-        }
-
-        protected override double GetV1ScoreChange(JudgementResult result)
-        {
-            //绕过转盘分(转盘分在BonusScoreChange中计算,故此不做处理)
-            if (result.Type is HitResult.SmallBonus or HitResult.LargeBonus)
-                return 0;
-
-            return GetBaseScoreForResult(result.Type); // 模拟 stable 的增长模式
-        }
-
-        protected override double ComputeTotalScore(double comboProgress, double accuracyProgress, double bonusPortion, double v1BasePortion)
-        {
-            return v1BasePortion + bonusPortion;
-        }
-    }
-
 }

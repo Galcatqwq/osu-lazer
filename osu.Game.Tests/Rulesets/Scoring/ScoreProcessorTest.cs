@@ -457,11 +457,9 @@ namespace osu.Game.Tests.Rulesets.Scoring
             {
             }
 
-            protected override double ComputeTotalScore(double comboProgress, double accuracyProgress, double bonusPortion, double currentV1BasePortion)
+            protected override double ComputeTotalScore(double comboProgress, double accuracyProgress, double bonusPortion, double v1Portion)
             {
-                return 500000 * comboProgress +
-                       500000 * Accuracy.Value * accuracyProgress +
-                       bonusPortion;
+                return v1Portion + bonusPortion;
             }
 
             // ReSharper disable once MemberHidesStaticFromOuterClass
