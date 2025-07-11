@@ -41,7 +41,7 @@ namespace osu.Game.Rulesets.Catch.Scoring
                 : (double)MaximumResultCounts.GetValueOrDefault(HitResult.SmallTickHit) / fruitTinyScaleDivisor;
         }
 
-        protected override double ComputeTotalScore(double comboProgress, double accuracyProgress, double bonusPortion, double currentV1BasePortion)
+        protected override double ComputeTotalScore(double comboProgress, double accuracyProgress, double bonusPortion, double v1Portion)
         {
             const int max_tiny_droplets_portion = 400000;
 
