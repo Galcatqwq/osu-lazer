@@ -101,7 +101,7 @@ namespace osu.Game.Configuration
             SetDefault(OsuSetting.MenuMusic, true);
             SetDefault(OsuSetting.MenuTips, false);
 
-            SetDefault(OsuSetting.AudioOffset, 0, -500.0, 500.0, 1);
+            SetDefault(OsuSetting.AudioOffset, 0, -500.0, 500.0, 0.1);
 
             // Input
             SetDefault(OsuSetting.MenuCursorSize, 1.0f, 0.5f, 2f, 0.01f);
