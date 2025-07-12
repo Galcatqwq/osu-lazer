@@ -8,8 +8,6 @@ using osu.Framework.Testing;
 using osu.Framework.Threading;
 using osu.Game.Beatmaps;
 using osu.Game.Database;
-using osu.Game.Rulesets.Osu;
-using osu.Game.Tests.Resources;
 
 namespace osu.Game.Benchmarks
 {
@@ -28,11 +26,6 @@ namespace osu.Game.Benchmarks
             storage.DeleteDirectory(string.Empty);
 
             realm = new RealmAccess(storage, OsuGameBase.CLIENT_DATABASE_FILENAME);
-
-            realm.Run(_ =>
-            {
-                realm.Write(c => c.Add(TestResources.CreateTestBeatmapSetInfo(rulesets: new[] { new OsuRuleset().RulesetInfo })));
-            });
 
             updateThread = new UpdateThread(() => { }, null);
             updateThread.Start();
