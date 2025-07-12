@@ -2,7 +2,6 @@
 // See the LICENCE file in the repository root for full licence text.
 
 using System.Collections.Generic;
-using System.Linq;
 using JetBrains.Annotations;
 using osu.Framework.Audio.Sample;
 using osu.Framework.Bindables;
@@ -12,10 +11,6 @@ using osu.Game.Audio;
 using osu.Game.Beatmaps.Formats;
 using osu.Game.Extensions;
 using osu.Game.IO;
-using osu.Game.Screens.Play;
-using osu.Game.Screens.Play.HUD;
-using osu.Game.Screens.Play.HUD.HitErrorMeters;
-using osuTK;
 using osuTK.Graphics;
 
 namespace osu.Game.Skinning
@@ -108,72 +103,6 @@ namespace osu.Game.Skinning
                             });
 
                             return songSelectComponents;
-
-                            var mainHUDComponents = new DefaultSkinComponentsContainer(container =>
-                            {
-                                var health = container.OfType<ArgonHealthDisplay>().FirstOrDefault();
-                                var songProgress = container.OfType<ArgonSongProgress>().FirstOrDefault();
-                                var keyCounter = container.OfType<ArgonKeyCounterDisplay>().FirstOrDefault();
-
-                                if (health != null)
-                                {
-                                    // elements default to beneath the health bar
-                                    const float components_x_offset = 50;
-
-                                    health.Anchor = Anchor.TopLeft;
-                                    health.Origin = Anchor.TopLeft;
-                                    health.UseRelativeSize.Value = false;
-                                    health.Width = 300;
-                                    health.BarHeight.Value = 30f;
-                                    health.Position = new Vector2(components_x_offset, 20f);
-
-                                    var hitError = container.OfType<HitErrorMeter>().FirstOrDefault();
-
-                                    if (hitError != null)
-                                    {
-                                        hitError.Anchor = Anchor.CentreLeft;
-                                        hitError.Origin = Anchor.CentreLeft;
-                                    }
-
-                                    var hitError2 = container.OfType<HitErrorMeter>().LastOrDefault();
-
-                                    if (hitError2 != null)
-                                    {
-                                        hitError2.Anchor = Anchor.CentreRight;
-                                        hitError2.Scale = new Vector2(-1, 1);
-                                        // origin flipped to match scale above.
-                                        hitError2.Origin = Anchor.CentreLeft;
-                                    }
-
-                                    if (songProgress != null)
-                                    {
-                                        const float padding = 10;
-                                        // Hard to find this at runtime, so taken from the most expanded state during replay.
-                                        const float song_progress_offset_height = 36 + padding;
-
-                                        songProgress.Position = new Vector2(0, -padding);
-                                        songProgress.Scale = new Vector2(0.9f, 1);
-
-                                        if (keyCounter != null && hitError != null)
-                                        {
-                                            keyCounter.Anchor = Anchor.BottomRight;
-                                            keyCounter.Origin = Anchor.BottomRight;
-                                            keyCounter.Position = new Vector2(-(hitError.Width + padding), -(padding * 2 + song_progress_offset_height));
-                                        }
-                                    }
-                                }
-                            })
-                            {
-                                Children = new Drawable[]
-                                {
-                                    new BarHitErrorMeter(),
-                                    new BarHitErrorMeter(),
-                                    new ArgonSongProgress(),
-                                    new ArgonKeyCounterDisplay(),
-                                }
-                            };
-
-                            return mainHUDComponents;
                     }
 
                     return null;

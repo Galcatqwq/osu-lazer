@@ -22,7 +22,7 @@ namespace osu.Game.Rulesets.Osu.Skinning.Argon
                     HitResult result = resultComponent.Component;
 
                     // This should eventually be moved to a skin setting, when supported.
-                    if (Skin is ArgonProSkin && (result == HitResult.Great || result == HitResult.Perfect))
+                    if (Skin is ArgonSkin && (result == HitResult.Great || result == HitResult.Perfect))
                         return Drawable.Empty();
 
                     switch (result)
