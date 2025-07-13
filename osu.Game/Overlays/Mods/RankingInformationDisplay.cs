@@ -13,7 +13,6 @@ using osu.Game.Graphics;
 using osu.Game.Graphics.Sprites;
 using osu.Game.Graphics.UserInterface;
 using osu.Game.Localisation;
-using osu.Game.Rulesets.Mods;
 using osu.Game.Utils;
 using osuTK;
 
@@ -28,8 +27,6 @@ namespace osu.Game.Overlays.Mods
 
         public Bindable<double> ModMultiplier = new BindableDouble(1);
 
-        public Bindable<bool> Ranked { get; } = new BindableBool(true);
-
         private readonly BindableWithCurrent<double> current = new BindableWithCurrent<double>();
 
         private const float transition_duration = 200;
@@ -37,7 +34,6 @@ namespace osu.Game.Overlays.Mods
         private RollingCounter<double> counter = null!;
 
         private Box flashLayer = null!;
-        private TextWithTooltip rankedText = null!;
 
         [Resolved]
         private OsuColour colours { get; set; } = null!;
@@ -75,13 +71,6 @@ namespace osu.Game.Overlays.Mods
                     Margin = new MarginPadding(10),
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
-                    Child = rankedText = new TextWithTooltip
-                    {
-                        Anchor = Anchor.Centre,
-                        Origin = Anchor.Centre,
-                        Shear = new Vector2(-OsuGame.SHEAR, 0),
-                        Font = OsuFont.Default.With(size: 17, weight: FontWeight.SemiBold)
-                    }
                 }
             });
 
@@ -110,11 +99,13 @@ namespace osu.Game.Overlays.Mods
             {
                 if (e.NewValue > ModMultiplier.Default)
                 {
-                    counter.FadeColour(colours.ForModType(ModType.DifficultyIncrease), transition_duration, Easing.OutQuint);
+                    // 倍率上升 -> 绿色
+                    counter.FadeColour(colours.Lime1, transition_duration, Easing.OutQuint);
                 }
                 else if (e.NewValue < ModMultiplier.Default)
                 {
-                    counter.FadeColour(colours.ForModType(ModType.DifficultyReduction), transition_duration, Easing.OutQuint);
+                    // 倍率下降 -> 红色
+                    counter.FadeColour(colours.Red1, transition_duration, Easing.OutQuint);
                 }
                 else
                 {
@@ -133,26 +124,6 @@ namespace osu.Game.Overlays.Mods
             // required to prevent the counter initially rolling up from 0 to 1
             // due to `Current.Value` having a nonstandard default value of 1.
             counter.SetCountWithoutRolling(ModMultiplier.Value);
-
-            Ranked.BindValueChanged(e =>
-            {
-                flash();
-
-                if (e.NewValue)
-                {
-                    rankedText.Text = ModSelectOverlayStrings.Ranked;
-                    rankedText.TooltipText = ModSelectOverlayStrings.RankedExplanation;
-                    rankedText.FadeColour(Colour4.White, transition_duration, Easing.OutQuint);
-                    FrontBackground.FadeColour(ColourProvider.Background3, transition_duration, Easing.OutQuint);
-                }
-                else
-                {
-                    rankedText.Text = ModSelectOverlayStrings.Unranked;
-                    rankedText.TooltipText = ModSelectOverlayStrings.UnrankedExplanation;
-                    rankedText.FadeColour(ColourProvider.Background5, transition_duration, Easing.OutQuint);
-                    FrontBackground.FadeColour(colours.Orange1, transition_duration, Easing.OutQuint);
-                }
-            }, true);
         }
 
         private void flash()

@@ -66,11 +66,6 @@ namespace osu.Game.Localisation
         public static LocalisableString RankedExplanation => new TranslatableString(getKey(@"ranked_explanation"), @"Performance points can be granted for the active mods.");
 
         /// <summary>
-        /// "Unranked"
-        /// </summary>
-        public static LocalisableString Unranked => new TranslatableString(getKey(@"unranked"), @"Unranked");
-
-        /// <summary>
         /// "Performance points will not be granted due to active mods."
         /// </summary>
         public static LocalisableString UnrankedExplanation => new TranslatableString(getKey(@"unranked_explanation"), @"Performance points will not be granted due to active mods.");

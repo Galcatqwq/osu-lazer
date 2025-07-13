@@ -9,9 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using osu.Framework.Allocation;
 using osu.Framework.Extensions.Color4Extensions;
-using osu.Framework.Extensions.LocalisationExtensions;
-using osu.Framework.Graphics.Containers;
-using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.UserInterface;
 using osu.Game.Configuration;
 using osu.Game.Graphics;
@@ -19,7 +16,6 @@ using osu.Game.Graphics.Sprites;
 using osuTK;
 using osuTK.Graphics;
 using osu.Game.Input.Bindings;
-using osu.Game.Localisation;
 using osu.Game.Utils;
 
 namespace osu.Game.Screens.Select
@@ -33,7 +29,6 @@ namespace osu.Game.Screens.Select
         }
 
         protected OsuSpriteText MultiplierText { get; private set; } = null!;
-        protected Container UnrankedBadge { get; private set; } = null!;
 
         private readonly ModDisplay modDisplay;
 
@@ -59,8 +54,8 @@ namespace osu.Game.Screens.Select
         {
             SelectedColour = colours.Yellow;
             DeselectedColour = SelectedColour.Opacity(0.5f);
-            lowMultiplierColour = colours.Green;
-            highMultiplierColour = colours.Red;
+            lowMultiplierColour = colours.Red;
+            highMultiplierColour = colours.Green;
             Text = @"mods";
             Hotkey = GlobalAction.ToggleModSelection;
 
@@ -72,31 +67,6 @@ namespace osu.Game.Screens.Select
                     Anchor = Anchor.Centre,
                     Origin = Anchor.Centre,
                     Font = OsuFont.GetFont(weight: FontWeight.Bold),
-                },
-                UnrankedBadge = new Container
-                {
-                    Anchor = Anchor.Centre,
-                    Origin = Anchor.Centre,
-                    AutoSizeAxes = Axes.Both,
-                    Children = new Drawable[]
-                    {
-                        new Circle
-                        {
-                            Anchor = Anchor.Centre,
-                            Origin = Anchor.Centre,
-                            Colour = colours.Yellow,
-                            RelativeSizeAxes = Axes.Both,
-                        },
-                        new OsuSpriteText
-                        {
-                            Anchor = Anchor.Centre,
-                            Origin = Anchor.Centre,
-                            Colour = colours.Gray2,
-                            Padding = new MarginPadding(5),
-                            UseFullGlyphHeight = false,
-                            Text = ModSelectOverlayStrings.Unranked.ToLower()
-                        }
-                    }
                 },
             });
         }
@@ -135,9 +105,6 @@ namespace osu.Game.Screens.Select
                 modDisplay.FadeIn();
             else
                 modDisplay.FadeOut();
-
-            bool anyUnrankedMods = Current.Value?.Any(m => !m.Ranked) == true;
-            UnrankedBadge.FadeTo(anyUnrankedMods ? 1 : 0);
         });
     }
 }
