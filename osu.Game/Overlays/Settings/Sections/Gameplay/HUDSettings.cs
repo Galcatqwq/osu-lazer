@@ -37,11 +37,6 @@ namespace osu.Game.Overlays.Settings.Sections.Gameplay
                 },
                 new SettingsCheckbox
                 {
-                    LabelText = GameplaySettingsStrings.AlwaysShowGameplayLeaderboard,
-                    Current = config.GetBindable<bool>(OsuSetting.GameplayLeaderboard),
-                },
-                new SettingsCheckbox
-                {
                     ClassicDefault = false,
                     LabelText = GameplaySettingsStrings.ShowHealthDisplayWhenCantFail,
                     Current = config.GetBindable<bool>(OsuSetting.ShowHealthDisplayWhenCantFail),

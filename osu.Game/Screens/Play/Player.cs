@@ -434,7 +434,7 @@ namespace osu.Game.Screens.Play
                     // display the cursor above some HUD elements.
                     DrawableRuleset.Cursor?.CreateProxy() ?? new Container(),
                     DrawableRuleset.ResumeOverlay?.CreateProxy() ?? new Container(),
-                    HUDOverlay = new HUDOverlay(DrawableRuleset, GameplayState.Mods, Configuration.AlwaysShowLeaderboard)
+                    HUDOverlay = new HUDOverlay(DrawableRuleset, GameplayState.Mods)
                     {
                         HoldToQuit =
                         {
