@@ -3,15 +3,17 @@
 
 using System;
 using System.Linq;
+using osu.Framework.Graphics.Sprites;
 using osu.Framework.Localisation;
 
 namespace osu.Game.Rulesets.Osu.Mods
 {
     public class OsuModSingleTap : InputBlockingMod
     {
-        public override string Name => @"Single Tap";
+        public override string Name => @"恒定";
         public override string Acronym => @"SG";
-        public override LocalisableString Description => @"You must only use one key!";
+        public override LocalisableString Description => @"你只能使用第一次点击时的按键!";
+        public override IconUsage? Icon => FontAwesome.Solid.Keyboard;
         public override Type[] IncompatibleMods => base.IncompatibleMods.Concat(new[] { typeof(OsuModAlternate) }).ToArray();
 
         protected override bool CheckValidNewAction(OsuAction action) => LastAcceptedAction == null || LastAcceptedAction == action;

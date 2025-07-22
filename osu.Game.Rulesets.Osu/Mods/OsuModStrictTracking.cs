@@ -4,8 +4,10 @@
 using System;
 using System.Linq;
 using System.Threading;
+using osu.Framework.Graphics.Sprites;
 using osu.Framework.Localisation;
 using osu.Game.Beatmaps;
+using osu.Game.Graphics;
 using osu.Game.Rulesets.Judgements;
 using osu.Game.Rulesets.Mods;
 using osu.Game.Rulesets.Objects;
@@ -23,6 +25,7 @@ namespace osu.Game.Rulesets.Osu.Mods
     {
         public override string Name => @"紧随";
         public override string Acronym => @"ST";
+        public override IconUsage? Icon => OsuIcon.ModPerfect;
         public override ModType Type => ModType.DifficultyIncrease;
         public override LocalisableString Description => @"不要放开我~.";
         public override double ScoreMultiplier => 1.0;

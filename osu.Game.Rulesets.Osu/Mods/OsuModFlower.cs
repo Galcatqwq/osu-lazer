@@ -9,6 +9,7 @@ using osu.Framework.Graphics.Sprites;
 using osu.Framework.Localisation;
 using osu.Game.Beatmaps;
 using osu.Game.Configuration;
+using osu.Game.Graphics;
 using osu.Game.Rulesets.Mods;
 using osu.Game.Rulesets.Osu.Replays;
 
@@ -16,13 +17,13 @@ namespace osu.Game.Rulesets.Osu.Mods
 {
     public class OsuModFlower : ModAutoplay
     {
-        public override string Name => "Dance Hack osu";
+        public override string Name => "Dance";
 
         public override string Acronym => "CD";
 
-        public override LocalisableString Description => "Well I could Fap To This";
+        public override IconUsage? Icon => OsuIcon.ModAuto;
 
-        public override IconUsage? Icon => null;
+        public override LocalisableString Description => "Well I could Fap To This";
 
         public override bool RequiresConfiguration => true;
 
@@ -46,7 +47,7 @@ namespace osu.Game.Rulesets.Osu.Mods
             Precision = 0.01f,
         };
 
-        public override Type[] IncompatibleMods => base.IncompatibleMods.Concat(new[] { typeof(OsuModMagnetised), typeof(OsuModAutopilot), typeof(OsuModSpunOut), typeof(OsuModAlternate), typeof(OsuModSingleTap) }).ToArray();
+        public override Type[] IncompatibleMods => base.IncompatibleMods.Concat(new[] { typeof(OsuModAutopilot), typeof(OsuModSpunOut), typeof(OsuModAlternate), typeof(OsuModSingleTap) }).ToArray();
 
         public override ModReplayData CreateReplayData(IBeatmap beatmap, IReadOnlyList<Mod> mods)
             => new ModReplayData(new OsuFlowerGenerator(beatmap, mods, JumpMultiplier.Value, AngleOffset.Value).Generate(), new ModCreatedUser { Username = "lazer!dance" });

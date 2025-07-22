@@ -13,7 +13,7 @@ namespace osu.Game.Rulesets.Mods
 {
     public abstract class ModAutoplay : Mod, ICreateReplayData
     {
-        public override string Name => "Peppy Hack osu";
+        public override string Name => "Peppy";
         public override string Acronym => "AT";
         public override IconUsage? Icon => OsuIcon.ModAuto;
         public override ModType Type => ModType.Automation;

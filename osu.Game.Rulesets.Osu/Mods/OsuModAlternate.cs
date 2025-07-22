@@ -10,7 +10,7 @@ namespace osu.Game.Rulesets.Osu.Mods
 {
     public class OsuModAlternate : InputBlockingMod
     {
-        public override string Name => @"Alternate";
+        public override string Name => @"轮换";
         public override string Acronym => @"AL";
         public override LocalisableString Description => @"强双练习器";
         public override IconUsage? Icon => FontAwesome.Solid.Keyboard;
