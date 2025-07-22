@@ -305,7 +305,6 @@ namespace osu.Game.Overlays.Mods
             yield return createModColumnContent(ModType.DifficultyIncrease);
             yield return createModColumnContent(ModType.Automation);
             yield return createModColumnContent(ModType.Conversion);
-            yield return createModColumnContent(ModType.Fun);
         }
 
         private ColumnDimContainer createModColumnContent(ModType modType)

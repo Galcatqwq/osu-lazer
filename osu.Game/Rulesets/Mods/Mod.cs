@@ -37,7 +37,7 @@ namespace osu.Game.Rulesets.Mods
         public virtual IconUsage? Icon => null;
 
         [JsonIgnore]
-        public virtual ModType Type => ModType.Fun;
+        public virtual ModType Type => ModType.Conversion;
 
         [JsonIgnore]
         public abstract LocalisableString Description { get; }

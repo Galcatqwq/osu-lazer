@@ -161,11 +161,6 @@ namespace osu.Game.Rulesets.Taiko
                         new TaikoModRelax(),
                     };
 
-                case ModType.Fun:
-                    return new Mod[]
-                    {
-                    };
-
                 case ModType.System:
                     return new Mod[]
                     {

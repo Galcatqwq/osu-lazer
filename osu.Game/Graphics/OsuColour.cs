@@ -166,9 +166,6 @@ namespace osu.Game.Graphics
                 case ModType.Conversion:
                     return Purple1;
 
-                case ModType.Fun:
-                    return Pink1;
-
                 case ModType.System:
                     return Yellow;
 
