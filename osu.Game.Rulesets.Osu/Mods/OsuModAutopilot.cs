@@ -30,7 +30,6 @@ namespace osu.Game.Rulesets.Osu.Mods
         {
             typeof(OsuModSpunOut),
             typeof(ModAutoplay),
-            typeof(OsuModMagnetised),
             typeof(ModTouchDevice)
         };
 
