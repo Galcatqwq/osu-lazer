@@ -58,14 +58,6 @@ namespace osu.Game.Rulesets.Scoring
         public readonly BindableLong TotalScore = new BindableLong { MinValue = 0 };
 
         /// <summary>
-        /// The total number of points awarded for the score without including mod multipliers.
-        /// </summary>
-        /// <remarks>
-        /// The purpose of this property is to enable future lossless rebalances of mod multipliers.
-        /// </remarks>
-        public readonly BindableLong TotalScoreWithoutMods = new BindableLong { MinValue = 0 };
-
-        /// <summary>
         /// The current accuracy.
         /// </summary>
         public readonly BindableDouble Accuracy = new BindableDouble(1) { MinValue = 0, MaxValue = 1 };
@@ -116,6 +108,11 @@ namespace osu.Game.Rulesets.Scoring
         public readonly Ruleset Ruleset;
 
         /// <summary>
+        /// 忘了是什么?
+        /// </summary>
+        public double MaximumCombo { get; set; }
+
+        /// <summary>
         /// The maximum achievable total score.
         /// </summary>
         public long MaximumTotalScore { get; private set; }
@@ -151,11 +148,6 @@ namespace osu.Game.Rulesets.Scoring
         /// </summary>
         private int currentAccuracyJudgementCount;
 
-        /*/// <summary>
-        /// The maximum combo score in the beatmap.
-        /// </summary>
-        private double maximumComboPortion;*/
-
         /// <summary>
         /// The combo score at the current point in time.
         /// </summary>
@@ -175,6 +167,11 @@ namespace osu.Game.Rulesets.Scoring
         /// The total score multiplier.
         /// </summary>
         private double scoreMultiplier = 1;
+
+        /// <summary>
+        /// The total score multiplier for ruleset./用于规则集分数计算的分数倍率
+        /// </summary>
+        public double ScoreMultiplierRuleset = 1;
 
         public Dictionary<HitResult, int> MaximumStatistics
         {
@@ -210,11 +207,21 @@ namespace osu.Game.Rulesets.Scoring
 
                 foreach (var m in mods.NewValue)
                     scoreMultiplier *= m.ScoreMultiplier;
+                foreach (var m in mods.NewValue)
+                    ScoreMultiplierRuleset *= m.ScoreMultiplier;
 
                 updateScore();
                 updateRank();
             };
         }
+
+        /// <summary>
+        /// Creates the <see cref="HitEvent"/> that describes a <see cref="JudgementResult"/>.
+        /// </summary>
+        /// <param name="result">The <see cref="JudgementResult"/> to describe.</param>
+        /// <returns>The <see cref="HitEvent"/>.</returns>
+        protected virtual HitEvent CreateHitEvent(JudgementResult result)
+            => new HitEvent(result.TimeOffset, result.GameplayRate, result.Type, result.HitObject, lastHitObject, null);
 
         public override void ApplyBeatmap(IBeatmap beatmap)
         {
@@ -268,13 +275,9 @@ namespace osu.Game.Rulesets.Scoring
             }
         }
 
-        /// <summary>
-        /// Creates the <see cref="HitEvent"/> that describes a <see cref="JudgementResult"/>.
-        /// </summary>
-        /// <param name="result">The <see cref="JudgementResult"/> to describe.</param>
-        /// <returns>The <see cref="HitEvent"/>.</returns>
-        protected virtual HitEvent CreateHitEvent(JudgementResult result)
-            => new HitEvent(result.TimeOffset, result.GameplayRate, result.Type, result.HitObject, lastHitObject, null);
+        protected virtual void ApplyScoreChange(JudgementResult result)
+        {
+        }
 
         protected sealed override void RevertResultInternal(JudgementResult result)
         {
@@ -313,44 +316,8 @@ namespace osu.Game.Rulesets.Scoring
             updateScore();
         }
 
-        /// <summary>
-        /// Gets the final score change to be applied to the bonus portion of the score.
-        /// </summary>
-        /// <param name="result">The judgement result.</param>
-        protected virtual double GetBonusScoreChange(JudgementResult result)
+        protected virtual void RemoveScoreChange(JudgementResult result)
         {
-            return GetBaseScoreForResult(result.Type);
-        }
-
-        /// <summary>
-        /// Gets the final score change to be applied to the combo portion of the score.
-        /// </summary>
-        /// <param name="result">The judgement result.</param>
-        protected virtual double GetComboScoreChange(JudgementResult result)
-        {
-            return GetBaseScoreForResult(result.Judgement.MaxResult) * Math.Pow(result.ComboAfterJudgement, COMBO_EXPONENT);
-        }
-
-        /// <summary>
-        ///V1得分计算
-        /// </summary>
-        protected virtual double GetV1ScoreChange(JudgementResult result)
-        {
-            //绕过转盘分(转盘分在BonusScoreChange中计算,故此不做处理)
-            if (result.Type is HitResult.SmallBonus or HitResult.LargeBonus)
-                return 0;
-
-            //绕过滑条点分数
-            if (result.Type is HitResult.SmallTickHit or HitResult.LargeTickHit or HitResult.SliderTailHit)
-                return GetBaseScoreForResult(result.Type);
-
-            double hitvalue = GetBaseScoreForResult(result.Type);
-            double combomultiplier = result.ComboAfterJudgement;
-            //double difficultymultiplier = 0;
-            //TODO:难度倍率待实现
-            //Difficulty multiplier = Round((HP Drain + Circle Size + Overall Difficulty + Clamp(Hit object count / Drain time in seconds * 8, 0, 16)) / 38 * 5)
-            double modmultiplier = scoreMultiplier;
-            return hitvalue * (1 + (combomultiplier - 1) * modmultiplier / 25); // 模拟 stable 的增长模式
         }
 
         public virtual int GetBaseScoreForResult(HitResult result)
@@ -390,12 +357,52 @@ namespace osu.Game.Rulesets.Scoring
             }
         }
 
-        protected virtual void ApplyScoreChange(JudgementResult result)
+        /// <summary>
+        /// Gets the final score change to be applied to the bonus portion of the score.
+        /// </summary>
+        /// <param name="result">The judgement result.</param>
+        protected virtual double GetBonusScoreChange(JudgementResult result)
         {
+            return GetBaseScoreForResult(result.Type);
         }
 
-        protected virtual void RemoveScoreChange(JudgementResult result)
+        /// <summary>
+        /// Gets the final score change to be applied to the combo portion of the score.
+        /// </summary>
+        /// <param name="result">The judgement result.</param>
+        protected virtual double GetComboScoreChange(JudgementResult result)
         {
+            //return GetBaseScoreForResult(result.Judgement.MaxResult) * Math.Pow(result.ComboAfterJudgement, COMBO_EXPONENT);
+            //傻逼comboProgress计算出来的分数有问题,故此直接返回零(别问为什么保留,问就是删引用麻烦)
+            return 0;
+        }
+
+        /// <summary>
+        ///V1经典得分计算,默认为STD标准,其他模式需要重写
+        /// </summary>
+        /// <param name="result">The judgement result.</param>
+        protected virtual double GetV1ScoreChange(JudgementResult result)
+        {
+            //绕过转盘分(转盘分在BonusScoreChange中计算,故此不做处理)
+            if (result.Type is HitResult.SmallBonus or HitResult.LargeBonus)
+                return 0;
+
+            //绕过滑条点分数
+            if (result.Type is HitResult.SmallTickHit or HitResult.LargeTickHit or HitResult.SliderTailHit)
+                return GetBaseScoreForResult(result.Type);
+
+            double hitvalue = GetBaseScoreForResult(result.Type);
+            double combomultiplier = result.ComboAfterJudgement;
+            //double difficultymultiplier = 0;
+            //TODO:难度倍率待实现
+            //Difficulty multiplier = Round((HP Drain + Circle Size + Overall Difficulty + Clamp(Hit object count / Drain time in seconds * 8, 0, 16)) / 38 * 5)
+            double modmultiplier = scoreMultiplier;
+            return hitvalue * (1 + (combomultiplier - 2) * modmultiplier / 25); // 模拟 stable 的增长模式
+        }
+
+        protected virtual double ComputeTotalScore(double comboProgress, double accuracyProgress, double bonusPortion, double v1Portion)
+        {
+            return v1Portion + bonusPortion;
         }
 
         private void updateScore()
@@ -405,9 +412,7 @@ namespace osu.Game.Rulesets.Scoring
             MaximumAccuracy.Value = maximumBaseScore > 0 ? (currentBaseScore + (maximumBaseScore - currentMaximumBaseScore)) / maximumBaseScore : 1;
             double accuracyProgress = maximumAccuracyJudgementCount > 0 ? (double)currentAccuracyJudgementCount / maximumAccuracyJudgementCount : 1;
 
-            TotalScoreWithoutMods.Value = (long)Math.Round(ComputeTotalScore(currentComboPortion, accuracyProgress, currentBonusPortion, currentV1Portion));
-            //TotalScore.Value = (long)Math.Round(TotalScoreWithoutMods.Value * scoreMultiplier);
-            TotalScore.Value = (long)Math.Round((double)TotalScoreWithoutMods.Value);
+            TotalScore.Value = (long)Math.Round(ComputeTotalScore(currentComboPortion, accuracyProgress, currentBonusPortion, currentV1Portion));
         }
 
         private void updateRank()
@@ -422,11 +427,6 @@ namespace osu.Game.Rulesets.Scoring
                 newRank = mod.AdjustRank(newRank, Accuracy.Value);
 
             rank.Value = newRank;
-        }
-
-        protected virtual double ComputeTotalScore(double comboProgress, double accuracyProgress, double bonusPortion, double v1Portion)
-        {
-            return v1Portion + bonusPortion;
         }
 
         /// <summary>
@@ -472,8 +472,6 @@ namespace osu.Game.Rulesets.Scoring
             updateRank();
         }
 
-        public double MaximumCombo { get; set; }
-
         /// <summary>
         /// Retrieve a score populated with data for the current play this processor is responsible for.
         /// </summary>
@@ -493,8 +491,6 @@ namespace osu.Game.Rulesets.Scoring
             foreach (var result in HitResultExtensions.ALL_TYPES)
                 score.MaximumStatistics[result] = MaximumResultCounts.GetValueOrDefault(result);
 
-            // Populate total score after everything else.
-            score.TotalScoreWithoutMods = TotalScoreWithoutMods.Value;
             score.TotalScore = TotalScore.Value;
         }
 
@@ -666,6 +662,10 @@ namespace osu.Game.Rulesets.Scoring
         [Key(4)]
         public double BonusPortion { get; set; }
 
+        /// <summary>
+        /// The V1 score at the current point in time/当前时间点的V1得分
+        /// </summary>
+        [Key(5)]
         public double V1Portion { get; set; }
     }
 }
