@@ -28,7 +28,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		osu.iOS.props = osu.iOS.props
 		CodeAnalysis\osu.ruleset = CodeAnalysis\osu.ruleset
 		osu.sln.DotSettings = osu.sln.DotSettings
-		osu.TestProject.props = osu.TestProject.props
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "osu.Game.Resources", "..\Yukikoi-lazer-Resources\osu.Game.Resources\osu.Game.Resources.csproj", "{E9CAD7A3-AF31-4106-A453-7F790D134730}"

@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Remove="Rulesets\Mods\ModBarrelRoll.cs" />
     <Compile Remove="Localisation\HUD\GameplayAccuracyCounterStrings.cs" />
+    <Compile Remove="Localisation\ClicksPerSecondCounterStrings.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="obj\Release\net8.0\osu.Game.csproj.Fody.RuntimeCopyLocal.cache" />
