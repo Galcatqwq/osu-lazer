@@ -9,7 +9,6 @@ using osu.Framework.Platform;
 using osu.Game.Beatmaps;
 using osu.Game.Beatmaps.Legacy;
 using osu.Game.Rulesets;
-using osu.Game.Rulesets.Catch;
 using osu.Game.Rulesets.Mania;
 using osu.Game.Rulesets.Mods;
 using osu.Game.Rulesets.Osu;
@@ -104,10 +103,7 @@ namespace osu.Desktop.LegacyIpc
                 case 1:
                     return new TaikoRuleset();
 
-                case 2:
-                    return new CatchRuleset();
-
-                case 3:
+                case 4:
                     return new ManiaRuleset();
 
                 default:
