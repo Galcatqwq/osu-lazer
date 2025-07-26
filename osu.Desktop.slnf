@@ -6,7 +6,6 @@
       "osu.Desktop\\osu.Desktop.csproj",
       "osu.Game.Rulesets.Mania\\osu.Game.Rulesets.Mania.csproj",
       "osu.Game.Rulesets.Osu\\osu.Game.Rulesets.Osu.csproj",
-      "osu.Game.Rulesets.Sandbox\\osu.Game.Rulesets.Sandbox.csproj",
       "osu.Game.Rulesets.Taiko\\osu.Game.Rulesets.Taiko.csproj",
       "osu.Game.Tournament\\osu.Game.Tournament.csproj",
       "osu.Game\\osu.Game.csproj"
