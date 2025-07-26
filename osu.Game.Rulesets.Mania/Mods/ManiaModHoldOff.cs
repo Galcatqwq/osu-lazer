@@ -15,13 +15,13 @@ namespace osu.Game.Rulesets.Mania.Mods
 {
     public class ManiaModHoldOff : Mod, IApplicableAfterBeatmapConversion
     {
-        public override string Name => "Hold Off";
+        public override string Name => "傻逼长条滚";
 
         public override string Acronym => "HO";
 
         public override double ScoreMultiplier => 0.9;
 
-        public override LocalisableString Description => @"Replaces all hold notes with normal notes.";
+        public override LocalisableString Description => @"欢迎来到只有米/子弹的世界.";
 
         public override IconUsage? Icon => FontAwesome.Solid.DotCircle;
 

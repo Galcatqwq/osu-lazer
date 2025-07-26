@@ -7,6 +7,6 @@ namespace osu.Game.Rulesets.Osu.Mods
 {
     public class OsuModNoFail : ModNoFail
     {
-        public override double ScoreMultiplier => 0.99999999;
-    }
+        public override double ScoreMultiplier => 0.5;
+    };
 }

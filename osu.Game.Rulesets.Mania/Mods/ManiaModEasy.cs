@@ -8,6 +8,8 @@ namespace osu.Game.Rulesets.Mania.Mods
 {
     public class ManiaModEasy : ModEasyWithExtraLives
     {
-        public override LocalisableString Description => @"More forgiving HP drain, less accuracy required, and three lives!";
+        public override double ScoreMultiplier => 0.5;
+        public override string Name => "简单";
+        public override LocalisableString Description => @"降低总体难度,HP掉的更慢,更低的准度要求";
     }
 }

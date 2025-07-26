@@ -18,7 +18,7 @@ namespace osu.Game.Rulesets.Mods
         public override IconUsage? Icon => OsuIcon.ModNoFail;
         public override ModType Type => ModType.DifficultyReduction;
         public override LocalisableString Description => "开了就是开?";
-        public override double ScoreMultiplier => 1;
+        public override double ScoreMultiplier => 0.99999;
         public override Type[] IncompatibleMods => new[] { typeof(ModFailCondition), typeof(ModCinema) };
         public override bool Ranked => UsesDefaultConfiguration;
 

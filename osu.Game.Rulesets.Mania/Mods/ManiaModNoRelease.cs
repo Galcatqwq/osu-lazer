@@ -18,7 +18,7 @@ namespace osu.Game.Rulesets.Mania.Mods
 {
     public partial class ManiaModNoRelease : Mod, IApplicableAfterBeatmapConversion, IApplicableToDrawableRuleset<ManiaHitObject>
     {
-        public override string Name => "No Release";
+        public override string Name => "无尾判";
 
         public override string Acronym => "NR";
 
