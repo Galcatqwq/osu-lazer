@@ -19,37 +19,6 @@ namespace osu.Game.Rulesets.Taiko.Scoring
         {
         }
 
-        protected override double ComputeTotalScore(double comboProgress, double accuracyProgress, double bonusPortion, double v1Portion)
-        {
-            return 10000000 * Math.Pow(Accuracy.Value, 3.6) * accuracyProgress
-                   + bonusPortion;
-        }
-
-        protected override double GetBonusScoreChange(JudgementResult result) => base.GetBonusScoreChange(result) * strongScaleValue(result);
-
-        protected override double GetComboScoreChange(JudgementResult result)
-        {
-            return GetBaseScoreForResult(result.Type)
-                   * Math.Min(Math.Max(0.5, Math.Log(result.ComboAfterJudgement, combo_base)), Math.Log(400, combo_base))
-                   * strongScaleValue(result);
-        }
-
-        public override ScoreRank RankFromScore(double accuracy, IReadOnlyDictionary<HitResult, int> results)
-        {
-            ScoreRank rank = base.RankFromScore(accuracy, results);
-
-            switch (rank)
-            {
-                case ScoreRank.S:
-                case ScoreRank.X:
-                    if (results.GetValueOrDefault(HitResult.Miss) > 0)
-                        rank = ScoreRank.A;
-                    break;
-            }
-
-            return rank;
-        }
-
         public override int GetBaseScoreForResult(HitResult result)
         {
             switch (result)
@@ -67,6 +36,35 @@ namespace osu.Game.Rulesets.Taiko.Scoring
                 return strong.Parent is DrumRollTick ? 3 : 7;
 
             return 1;
+        }
+
+        protected override double GetBonusScoreChange(JudgementResult result) => base.GetBonusScoreChange(result) * strongScaleValue(result);
+
+        protected override double GetV1ScoreChange(JudgementResult result)
+        {
+            return 0;
+        }
+
+        protected override double ComputeTotalScore(double comboProgress, double accuracyProgress, double bonusPortion, double v1Portion)
+        {
+            return 10000000 * Math.Pow(Accuracy.Value, 3.6) * accuracyProgress * ScoreMultiplierRuleset
+                   + bonusPortion;
+        }
+
+        public override ScoreRank RankFromScore(double accuracy, IReadOnlyDictionary<HitResult, int> results)
+        {
+            ScoreRank rank = base.RankFromScore(accuracy, results);
+
+            switch (rank)
+            {
+                case ScoreRank.S:
+                case ScoreRank.X:
+                    if (results.GetValueOrDefault(HitResult.Miss) > 0)
+                        rank = ScoreRank.A;
+                    break;
+            }
+
+            return rank;
         }
     }
 }

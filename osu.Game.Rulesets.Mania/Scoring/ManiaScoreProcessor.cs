@@ -31,6 +31,30 @@ namespace osu.Game.Rulesets.Mania.Scoring
         {
         }
 
+        private class JudgementOrderComparer : IComparer<HitObject>
+        {
+            public static readonly JudgementOrderComparer DEFAULT = new JudgementOrderComparer();
+
+            public int Compare(HitObject? x, HitObject? y)
+            {
+                if (ReferenceEquals(x, y)) return 0;
+                if (ReferenceEquals(x, null)) return -1;
+                if (ReferenceEquals(y, null)) return 1;
+
+                int result = x.GetEndTime().CompareTo(y.GetEndTime());
+                if (result != 0)
+                    return result;
+
+                // due to the way input is handled in mania, notes take precedence over ticks in judging order.
+                if (x is Note && y is not Note) return -1;
+                if (x is not Note && y is Note) return 1;
+
+                return x is ManiaHitObject maniaX && y is ManiaHitObject maniaY
+                    ? maniaX.Column.CompareTo(maniaY.Column)
+                    : 0;
+            }
+        }
+
         protected override IEnumerable<HitObject> EnumerateHitObjects(IBeatmap beatmap)
             => base.EnumerateHitObjects(beatmap).Order(JudgementOrderComparer.DEFAULT);
 
@@ -58,7 +82,7 @@ namespace osu.Game.Rulesets.Mania.Scoring
 
         protected override double ComputeTotalScore(double comboProgress, double accuracyProgress, double bonusPortion, double v1Portion)
         {
-            return v1Portion;
+            return v1Portion * ScoreMultiplierRuleset;
         }
 
         public override ScoreRank RankFromScore(double accuracy, IReadOnlyDictionary<HitResult, int> results)
@@ -75,30 +99,6 @@ namespace osu.Game.Rulesets.Mania.Scoring
                 return ScoreRank.C;
 
             return ScoreRank.D;
-        }
-
-        private class JudgementOrderComparer : IComparer<HitObject>
-        {
-            public static readonly JudgementOrderComparer DEFAULT = new JudgementOrderComparer();
-
-            public int Compare(HitObject? x, HitObject? y)
-            {
-                if (ReferenceEquals(x, y)) return 0;
-                if (ReferenceEquals(x, null)) return -1;
-                if (ReferenceEquals(y, null)) return 1;
-
-                int result = x.GetEndTime().CompareTo(y.GetEndTime());
-                if (result != 0)
-                    return result;
-
-                // due to the way input is handled in mania, notes take precedence over ticks in judging order.
-                if (x is Note && y is not Note) return -1;
-                if (x is not Note && y is Note) return 1;
-
-                return x is ManiaHitObject maniaX && y is ManiaHitObject maniaY
-                    ? maniaX.Column.CompareTo(maniaY.Column)
-                    : 0;
-            }
         }
     }
 }
