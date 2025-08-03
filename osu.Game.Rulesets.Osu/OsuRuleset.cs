@@ -156,13 +156,11 @@ namespace osu.Game.Rulesets.Osu
                     return new Mod[]
                     {
                         new OsuModHardRock(),
-                        new MultiMod(new OsuModSuddenDeath(), new OsuModPerfect()),
+                        new MultiMod(new OsuModSuddenDeath(), new OsuModPerfect(), new OsuModAccuracyChallenge()),
                         new MultiMod(new OsuModDoubleTime(), new OsuModNightcore()),
                         new OsuModHidden(),
                         new OsuModFlashlight(),
                         new OsuModBlinds(),
-                        new OsuModStrictTracking(),
-                        new OsuModAccuracyChallenge(),
                     };
 
                 case ModType.Conversion:
@@ -177,7 +175,8 @@ namespace osu.Game.Rulesets.Osu
                 case ModType.Automation:
                     return new Mod[]
                     {
-                        new MultiMod(new OsuModAutoplay(), new OsuModFlower(), new OsuModCinema()),
+                        //new MultiMod(new OsuModAutoplay(), new OsuModFlower(), new OsuModCinema()),
+                        new MultiMod(new OsuModAutoplay(), new OsuModCinema()),
                         new OsuModRelax(),
                         new OsuModAutopilot(),
                         new OsuModSpunOut(),

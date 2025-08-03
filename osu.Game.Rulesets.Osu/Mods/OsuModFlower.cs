@@ -1,4 +1,5 @@
-﻿// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the MIT Licence.
+﻿/*
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the MIT Licence.
 // See the LICENCE file in the repository root for full licence text.
 
 using System;
@@ -17,13 +18,13 @@ namespace osu.Game.Rulesets.Osu.Mods
 {
     public class OsuModFlower : ModAutoplay
     {
-        public override string Name => "Dance";
+        public override string Name => "Danser";
 
         public override string Acronym => "CD";
 
         public override IconUsage? Icon => OsuIcon.ModAuto;
 
-        public override LocalisableString Description => "Well I could Fap To This";
+        public override LocalisableString Description => "Danser会为你而战";
 
         public override bool RequiresConfiguration => true;
 
@@ -53,3 +54,4 @@ namespace osu.Game.Rulesets.Osu.Mods
             => new ModReplayData(new OsuFlowerGenerator(beatmap, mods, JumpMultiplier.Value, AngleOffset.Value).Generate(), new ModCreatedUser { Username = "lazer!dance" });
     }
 }
+*/
