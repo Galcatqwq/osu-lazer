@@ -13,7 +13,7 @@ namespace osu.Game.Rulesets.Mods
 {
     public abstract class ModPerfect : ModFailCondition
     {
-        public override string Name => "完美";
+        public override string Name => "完美の必要性";
         public override string Acronym => "PF";
         public override IconUsage? Icon => OsuIcon.ModPerfect;
         public override ModType Type => ModType.DifficultyIncrease;

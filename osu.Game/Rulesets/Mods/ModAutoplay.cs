@@ -13,11 +13,11 @@ namespace osu.Game.Rulesets.Mods
 {
     public abstract class ModAutoplay : Mod, ICreateReplayData
     {
-        public override string Name => "Peppy";
+        public override string Name => "迪恩·赫伯特";
         public override string Acronym => "AT";
         public override IconUsage? Icon => OsuIcon.ModAuto;
         public override ModType Type => ModType.Automation;
-        public override LocalisableString Description => "Well I could Fap To This";
+        public override LocalisableString Description => "借助Peppy的神力召唤各模式Top1为你而战";
         public override double ScoreMultiplier => 1;
 
         public sealed override bool UserPlayable => false;

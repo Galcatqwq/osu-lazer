@@ -13,9 +13,9 @@ namespace osu.Game.Rulesets.Mods
 {
     public abstract class ModSuddenDeath : ModFailCondition
     {
-        public override string Name => "全连";
+        public override string Name => "全连の必要性";
         public override string Acronym => "SD";
-        public override IconUsage? Icon => OsuIcon.ModSuddenDeath;
+        public override IconUsage? Icon => OsuIcon.ModPerfect;
         public override ModType Type => ModType.DifficultyIncrease;
         public override LocalisableString Description => "不全连,便失败";
         public override double ScoreMultiplier => 1;

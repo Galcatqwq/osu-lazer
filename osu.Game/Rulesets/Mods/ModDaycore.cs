@@ -3,10 +3,8 @@
 
 using osu.Framework.Audio;
 using osu.Framework.Bindables;
-using osu.Framework.Graphics.Sprites;
 using osu.Framework.Localisation;
 using osu.Game.Configuration;
-using osu.Game.Graphics;
 using osu.Game.Overlays.Settings;
 
 namespace osu.Game.Rulesets.Mods
@@ -14,8 +12,8 @@ namespace osu.Game.Rulesets.Mods
     public abstract class ModDaycore : ModRateAdjust
     {
         public override string Name => "日核";
+
         public override string Acronym => "DC";
-        public override IconUsage? Icon => OsuIcon.ModHalftime;
         public override ModType Type => ModType.DifficultyReduction;
         public override LocalisableString Description => "哇哦~~~~";
         public override bool Ranked => UsesDefaultConfiguration;

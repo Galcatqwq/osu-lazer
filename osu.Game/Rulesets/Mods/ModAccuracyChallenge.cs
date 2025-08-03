@@ -25,7 +25,7 @@ namespace osu.Game.Rulesets.Mods
 
         public override IconUsage? Icon => OsuIcon.ModPerfect;
 
-        public override LocalisableString Description => "准确率过低时原地去世！";
+        public override LocalisableString Description => "不达标，便重试";
 
         public override ModType Type => ModType.DifficultyIncrease;
 

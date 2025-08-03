@@ -16,7 +16,7 @@ namespace osu.Game.Rulesets.Mods
 
         public override IconUsage? Icon => FontAwesome.Solid.History;
 
-        public override LocalisableString Description => "启用 Classic Mode";
+        public override LocalisableString Description => "梦回V1";
 
         public override ModType Type => ModType.Conversion;
 
