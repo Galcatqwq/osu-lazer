@@ -18,7 +18,6 @@ using osu.Game.Rulesets.Osu.Beatmaps;
 using osu.Game.Rulesets.Osu.Configuration;
 using osu.Game.Rulesets.Osu.Objects;
 using osu.Game.Rulesets.Osu.Objects.Drawables;
-using osu.Game.Rulesets.Osu.Objects.Drawables.Connections;
 using osu.Game.Rulesets.Osu.UI.Cursor;
 using osu.Game.Rulesets.Scoring;
 using osu.Game.Rulesets.UI;
@@ -42,7 +41,6 @@ namespace osu.Game.Rulesets.Osu.UI
         public override bool UpdateSubTreeMasking() => false;
 
         public SmokeContainer Smoke { get; }
-        public FollowPointRenderer FollowPoints { get; }
 
         public static readonly Vector2 BASE_SIZE = new Vector2(512, 384);
 
@@ -66,7 +64,6 @@ namespace osu.Game.Rulesets.Osu.UI
                 },
                 Smoke = new SmokeContainer { RelativeSizeAxes = Axes.Both },
                 spinnerProxies = new ProxyContainer { RelativeSizeAxes = Axes.Both },
-                FollowPoints = new FollowPointRenderer { RelativeSizeAxes = Axes.Both },
                 judgementLayer = new JudgementContainer<DrawableOsuJudgement> { RelativeSizeAxes = Axes.Both },
                 HitObjectContainer,
                 judgementAboveHitObjectLayer = new Container { RelativeSizeAxes = Axes.Both },
@@ -171,18 +168,6 @@ namespace osu.Game.Rulesets.Osu.UI
         }
 
         protected override HitObjectLifetimeEntry CreateLifetimeEntry(HitObject hitObject) => new OsuHitObjectLifetimeEntry(hitObject);
-
-        protected override void OnHitObjectAdded(HitObject hitObject)
-        {
-            base.OnHitObjectAdded(hitObject);
-            FollowPoints.AddFollowPoints((OsuHitObject)hitObject);
-        }
-
-        protected override void OnHitObjectRemoved(HitObject hitObject)
-        {
-            base.OnHitObjectRemoved(hitObject);
-            FollowPoints.RemoveFollowPoints((OsuHitObject)hitObject);
-        }
 
         private void onNewResult(DrawableHitObject judgedObject, JudgementResult result)
         {
