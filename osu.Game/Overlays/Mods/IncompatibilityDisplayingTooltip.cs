@@ -34,7 +34,7 @@ namespace osu.Game.Overlays.Mods
                     Margin = new MarginPadding { Top = 5 },
                     Colour = colourProvider.Content2,
                     Font = OsuFont.GetFont(weight: FontWeight.Regular),
-                    Text = "Incompatible with:"
+                    Text = "和这些Mod冲突:"
                 },
                 new ModDisplay
                 {
@@ -54,7 +54,7 @@ namespace osu.Game.Overlays.Mods
             var allMods = ruleset.Value.CreateInstance().AllMods;
 
             incompatibleMods.Value = allMods.Where(m => m.GetType() != mod.GetType() && incompatibleTypes.Any(t => t.IsInstanceOfType(m))).Select(m => m.CreateInstance()).ToList();
-            incompatibleText.Text = incompatibleMods.Value.Any() ? "Incompatible with:" : "Compatible with all mods";
+            incompatibleText.Text = incompatibleMods.Value.Any() ? "和这些Mod冲突:" : "和所有Mod兼容!";
         }
     }
 }
