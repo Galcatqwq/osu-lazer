@@ -2,7 +2,6 @@
 // See the LICENCE file in the repository root for full licence text.
 
 using System;
-using System.Linq;
 using osu.Framework.Localisation;
 using osu.Game.Rulesets.Mods;
 using osu.Game.Rulesets.Objects.Drawables;
@@ -14,7 +13,7 @@ namespace osu.Game.Rulesets.Taiko.Mods
     {
         public override LocalisableString Description => @"红蓝不分,这就是1K(bushi";
 
-        public override Type[] IncompatibleMods => base.IncompatibleMods.Concat(new[] { typeof(TaikoModSingleTap) }).ToArray();
+        public override Type[] IncompatibleMods => new[] { typeof(Nullable) };
 
         public void ApplyToDrawableHitObject(DrawableHitObject drawable)
         {
