@@ -22,6 +22,8 @@ namespace osu.Game.Rulesets.Scoring
 {
     public partial class ScoreProcessor : JudgementProcessor
     {
+        private const double difficultymultiplier = 4; // 临时添加的固定难度倍率
+
         /// <summary>
         /// The exponent applied to combo in the default implementation of <see cref="GetComboScoreChange"/>.
         /// </summary>
@@ -387,17 +389,18 @@ namespace osu.Game.Rulesets.Scoring
             if (result.Type is HitResult.SmallBonus or HitResult.LargeBonus)
                 return 0;
 
-            //绕过滑条点分数
+            //绕过滑条点分数(滑条点分数不累加combo分)
             if (result.Type is HitResult.SmallTickHit or HitResult.LargeTickHit or HitResult.SliderTailHit)
                 return GetBaseScoreForResult(result.Type);
 
+            // 模拟 stable 的增长模式
             double hitvalue = GetBaseScoreForResult(result.Type);
             double combomultiplier = result.ComboAfterJudgement;
             //double difficultymultiplier = 0;
             //TODO:难度倍率待实现
             //Difficulty multiplier = Round((HP Drain + Circle Size + Overall Difficulty + Clamp(Hit object count / Drain time in seconds * 8, 0, 16)) / 38 * 5)
             double modmultiplier = scoreMultiplier;
-            return hitvalue * (1 + (combomultiplier - 2) * modmultiplier / 25); // 模拟 stable 的增长模式
+            return hitvalue * (1 + Math.Max(0, combomultiplier - 2) * difficultymultiplier * modmultiplier / 25);
         }
 
         protected virtual double ComputeTotalScore(double comboProgress, double accuracyProgress, double bonusPortion, double v1Portion)
