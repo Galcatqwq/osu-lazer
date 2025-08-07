@@ -42,13 +42,13 @@ namespace osu.Game.Screens.Edit.Setup
         {
             Children = new Drawable[]
             {
-                backgroundChooser = new LabelledFileChooser(".jpg", ".jpeg", ".png", ".bmp", ".psd")
+                backgroundChooser = new LabelledFileChooser(".jpg", ".jpeg", ".png", ".bmp")
                 {
                     Label = GameplaySettingsStrings.BackgroundHeader,
                     FixedLabelWidth = LABEL_WIDTH,
                     TabbableContentContainer = this
                 },
-                audioTrackChooser = new LabelledFileChooser(".mp3", ".ogg", ".flac", ".wav")
+                audioTrackChooser = new LabelledFileChooser(".mp3", ".ogg", ".wav")
                 {
                     Label = EditorSetupStrings.AudioTrack,
                     FixedLabelWidth = LABEL_WIDTH,

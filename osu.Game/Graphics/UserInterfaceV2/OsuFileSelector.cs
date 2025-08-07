@@ -78,12 +78,12 @@ namespace osu.Game.Graphics.UserInterfaceV2
                         case @".ogg":
                         case @".mp3":
                         case @".wav":
-                        case @".flac":
                             return FontAwesome.Regular.FileAudio;
 
                         case @".jpg":
                         case @".jpeg":
                         case @".png":
+                        case @".bmp":
                             return FontAwesome.Regular.FileImage;
 
                         default:
