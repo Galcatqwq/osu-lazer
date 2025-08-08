@@ -22,14 +22,8 @@ namespace osu.Game.Rulesets.Scoring
 {
     public partial class ScoreProcessor : JudgementProcessor
     {
-        private const double difficultymultiplier = 4; // 临时添加的固定难度倍率
+        private const double difficultymultiplier = 2.5; // 临时添加的固定难度倍率
 
-        /// <summary>
-        /// The exponent applied to combo in the default implementation of <see cref="GetComboScoreChange"/>.
-        /// </summary>
-        /// <remarks>
-        /// If a custom implementation overrides <see cref="GetComboScoreChange"/> this may not be relevant.
-        /// </remarks>
         public const double COMBO_EXPONENT = 1;
 
         public const double MAX_SCORE = 10000000;
@@ -260,8 +254,7 @@ namespace osu.Game.Rulesets.Scoring
             if (result.Type.IsBonus())
                 currentBonusPortion += GetBonusScoreChange(result);
             else if (result.Type.IsScorable())
-                currentComboPortion += GetComboScoreChange(result);
-            currentV1Portion += GetV1ScoreChange(result);
+                currentV1Portion += GetV1ScoreChange(result);
 
             ApplyScoreChange(result);
 
@@ -307,8 +300,7 @@ namespace osu.Game.Rulesets.Scoring
                 currentBonusPortion -= GetBonusScoreChange(result);
 
             else if (result.Type.IsScorable())
-                currentComboPortion -= GetComboScoreChange(result);
-            currentV1Portion -= GetV1ScoreChange(result);
+                currentV1Portion -= GetV1ScoreChange(result);
 
             RemoveScoreChange(result);
 
@@ -366,17 +358,6 @@ namespace osu.Game.Rulesets.Scoring
         protected virtual double GetBonusScoreChange(JudgementResult result)
         {
             return GetBaseScoreForResult(result.Type);
-        }
-
-        /// <summary>
-        /// Gets the final score change to be applied to the combo portion of the score.
-        /// </summary>
-        /// <param name="result">The judgement result.</param>
-        protected virtual double GetComboScoreChange(JudgementResult result)
-        {
-            //return GetBaseScoreForResult(result.Judgement.MaxResult) * Math.Pow(result.ComboAfterJudgement, COMBO_EXPONENT);
-            //傻逼comboProgress计算出来的分数有问题,故此直接返回零(别问为什么保留,问就是删引用麻烦)
-            return 0;
         }
 
         /// <summary>
