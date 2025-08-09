@@ -31,10 +31,10 @@ namespace osu.Game.Rulesets.Mods
         public override bool Ranked => UsesDefaultConfiguration;
 
         [SettingSource("Speed increase", "The actual increase to apply", SettingControlType = typeof(MultiplierSettingsSlider))]
-        public override BindableNumber<double> SpeedChange { get; } = new BindableDouble(2.0)
+        public override BindableNumber<double> SpeedChange { get; } = new BindableDouble(1.5)
         {
             MinValue = 1.01,
-            MaxValue = 10,
+            MaxValue = 4,
             Precision = 0.01,
         };
 
@@ -84,7 +84,7 @@ namespace osu.Game.Rulesets.Mods
 
             public NightcoreBeatContainer()
             {
-                Divisor = 2;
+                Divisor = 4;
             }
 
             [BackgroundDependencyLoader]
