@@ -19,8 +19,8 @@ namespace osu.Game.Rulesets.Osu.Mods
         public override string Acronym => "SO";
         public override IconUsage? Icon => OsuIcon.ModSpunOut;
         public override ModType Type => ModType.Automation;
-        public override LocalisableString Description => @"开转了是吧.";
-        public override Type[] IncompatibleMods => new[] { typeof(OsuModAutoplay) };
+        public override LocalisableString Description => @"旋转体具有稳定(不封号)性.";
+        public override Type[] IncompatibleMods => new[] { typeof(OsuModAutoplay), typeof(OsuModAutopilot) };
         public override double ScoreMultiplier => 0.9;
 
         //public override Type[] IncompatibleMods => new[] { typeof(?) };
@@ -53,7 +53,7 @@ namespace osu.Game.Rulesets.Osu.Mods
             // multiply the SPM by 1.01 to ensure that the spinner is completed. if the calculation is left exact,
             // some spinners may not complete due to very minor decimal loss during calculation
             float rotationSpeed = (float)(1.01 * spinner.HitObject.SpinsRequired / spinner.HitObject.Duration);
-            spinner.RotationTracker.AddRotation(float.RadiansToDegrees((float)rateIndependentElapsedTime * rotationSpeed * MathF.PI * 114514f));
+            spinner.RotationTracker.AddRotation(float.RadiansToDegrees((float)rateIndependentElapsedTime * rotationSpeed * MathF.PI * 11.45f));
         }
     }
 }
