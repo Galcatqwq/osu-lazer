@@ -165,7 +165,7 @@ namespace osu.Game.Rulesets.Scoring
         private double scoreMultiplier = 1;
 
         /// <summary>
-        /// The total score multiplier for ruleset./用于规则集分数计算的分数倍率
+        /// The total score multiplier for ruleset./用于规则集ScoreProcessor的分数倍率,和scoreMultiplier一致
         /// </summary>
         public double ScoreMultiplierRuleset = 1;
 
@@ -381,7 +381,7 @@ namespace osu.Game.Rulesets.Scoring
             //TODO:难度倍率待实现
             //Difficulty multiplier = Round((HP Drain + Circle Size + Overall Difficulty + Clamp(Hit object count / Drain time in seconds * 8, 0, 16)) / 38 * 5)
             double modmultiplier = scoreMultiplier;
-            return hitvalue * (1 + Math.Max(0, combomultiplier - 2) * difficultymultiplier * modmultiplier / 25);
+            return hitvalue * (1 + Math.Max(0, combomultiplier - 1) * difficultymultiplier * modmultiplier / 25);
         }
 
         protected virtual double ComputeTotalScore(double comboProgress, double accuracyProgress, double bonusPortion, double v1Portion)

@@ -1,7 +1,6 @@
 ﻿// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the MIT Licence.
 // See the LICENCE file in the repository root for full licence text.
 
-using System;
 using System.Collections.Generic;
 using osu.Game.Rulesets.Judgements;
 using osu.Game.Rulesets.Scoring;
@@ -42,12 +41,20 @@ namespace osu.Game.Rulesets.Taiko.Scoring
 
         protected override double GetV1ScoreChange(JudgementResult result)
         {
-            return 0;
+            double score = GetBaseScoreForResult(result.Type);
+
+            if (result.HitObject is StrongNestedHitObject strong)
+            {
+                score *= 2;
+            }
+
+            return score * strongScaleValue(result);
+
         }
 
         protected override double ComputeTotalScore(double comboProgress, double accuracyProgress, double bonusPortion, double v1Portion)
         {
-            return 10000000 * Math.Pow(Accuracy.Value, 3.6) * accuracyProgress * ScoreMultiplierRuleset
+            return v1Portion * ScoreMultiplierRuleset
                    + bonusPortion;
         }
 
